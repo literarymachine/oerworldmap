@@ -1,0 +1,2 @@
+GET   /resource/                controllers.ResourceIndex.get()
+POST  /resource/                controllers.ResourceIndex.post()
