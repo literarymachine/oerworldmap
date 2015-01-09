@@ -1,2 +1,3 @@
 GET   /resource/                controllers.ResourceIndex.get()
 POST  /resource/                controllers.ResourceIndex.post()
+GET   /assets/*file             controllers.Assets.at(path="/public", file)
