@@ -22,6 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.ArrayList;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import com.github.jknack.handlebars.*;
 
 public class ResourceIndex extends Controller {
 
@@ -29,7 +30,17 @@ public class ResourceIndex extends Controller {
 
   public static Result get() throws IOException, JsonLdError {
     Object jsonObject = getJsonForID("JsonLdTest", "person");
-    return ok(JsonUtils.toPrettyString(jsonObject));
+    JsonNode jsonNode = new ObjectMapper().convertValue(jsonObject, JsonNode.class);
+
+    Handlebars handlebars = new Handlebars();
+    handlebars.registerHelper("json", Jackson2Helper.INSTANCE);
+
+    Context ctx = Context
+      .newBuilder(jsonNode)
+      .resolver(JsonNodeValueResolver.INSTANCE)
+      .build();
+    Template template = handlebars.compileInline("Hello {{givenName}} {{familyName}}!");
+    return ok(template.apply(ctx));
   }
 
   public static Result post() {
@@ -65,8 +76,9 @@ public class ResourceIndex extends Controller {
     JsonLdOptions options = new JsonLdOptions();
     Map compact = JsonLdProcessor.frame(jsonObject, frame, options);
     ArrayList valueObjects = (ArrayList)compact.get("@graph");
-    Map valueObject = (Map)valueObjects.get(0);
+    Map valueObject = new LinkedHashMap();
     valueObject.put("@context", getJsonLdContextFor(type));
+    valueObject.putAll((Map)valueObjects.get(0));
     return valueObject;
   }
 
