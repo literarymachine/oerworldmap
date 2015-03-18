@@ -11,6 +11,7 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import play.Configuration;
 import play.Play;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.twirl.api.Html;
 import services.ElasticsearchClient;
 import services.ElasticsearchConfig;
@@ -86,6 +87,7 @@ public abstract class OERWorldMap extends Controller {
     mustacheData.put("scope", scope);
     mustacheData.put("messages", messages);
     mustacheData.put("i18n", i18n);
+    mustacheData.put("user", Secured.getHttpBasicAuthUser(Http.Context.current()));
     Mustache template = MustacheFactory.compile(templatePath);
     Writer writer = new StringWriter();
     template.execute(writer, mustacheData);
