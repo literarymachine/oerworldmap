@@ -95,7 +95,7 @@ public class Resource implements Map<String, Object> {
     try {
       schema = JsonSchemaFactory.byDefault().getJsonSchema(
           new ObjectMapper().readTree(Paths.get("public/json/schema.json").toFile()),
-              "/".concat(mProperties.get(JsonLdConstants.TYPE).toString())
+              "/definitions/".concat(mProperties.get(JsonLdConstants.TYPE).toString())
       );
       report = schema.validate(toJson());
     } catch (ProcessingException | IOException e) {
