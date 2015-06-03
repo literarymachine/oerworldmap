@@ -9,6 +9,7 @@ Hijax.behaviours.populateMap = {
 
     $('[about="#users-by-country"]', context).each(function(){
       that.populateHeatdata( this );
+      $(this).hide();
     });
   },
   
