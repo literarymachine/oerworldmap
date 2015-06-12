@@ -102,8 +102,15 @@ Hijax.behaviours.map = {
     info.find('tr').hide();
     info.find('thead>tr').hide();
     if (feature) {
-      info.find('thead>tr').show();
-      info.find('tr[about="#' + feature.getId().toLowerCase() + '"]').show();
+      var properties = feature.getProperties();
+      if (properties.type) {
+        // Feature is an icon for a resource
+        console.log(properties.refId);
+      } else {
+        // Feature is a country
+        info.find('thead>tr').show();
+        info.find('tr[about="#' + feature.getId().toLowerCase() + '"]').show();
+      }
     }
 
   },
@@ -180,7 +187,8 @@ Hijax.behaviours.map = {
         geometry: point,
         name: placemarks[i].name,
         url: placemarks[i].url,
-        type: placemarks[i].type
+        type: placemarks[i].type,
+        refId: placemarks[i].refId
       });
       feature.setId(placemarks[i].id);
       feature.setStyle(iconStyle);
@@ -277,6 +285,11 @@ Hijax.behaviours.map = {
 
     origin = origin || resource;
     var that = this;
+
+    if (markers[resource['@id']]) {
+      return
+    }
+
     var locations = [];
     var markers = [];
 
@@ -290,10 +303,11 @@ Hijax.behaviours.map = {
       if (geo = locations[l].geo) {
         markers.push({
           latLng: [geo['lat'], geo['lon']],
-          id: origin['@id'],
-          type: origin['@type'],
-          name: labelCallback ? labelCallback(origin) : origin['@id'],
-          url: "/resource/" + origin['@id']
+          id: resource['@id'],
+          type: resource['@type'],
+          refId: origin['@id'] || null,
+          name: labelCallback ? labelCallback(resource) : resource['@id'],
+          url: "/resource/" + resource['@id']
         })
       }
     }
