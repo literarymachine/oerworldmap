@@ -2,8 +2,10 @@ package controllers;
 
 import models.Record;
 import models.Resource;
+import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import play.Logger;
 import play.mvc.Result;
 
 import java.io.IOException;
@@ -18,12 +20,18 @@ public class AggregationIndex extends OERWorldMap {
 
   public static Result list() throws IOException {
     @SuppressWarnings("rawtypes")
-    AggregationBuilder usersByCountry = AggregationBuilders.terms("users_by_country").field(
-        Record.RESOURCEKEY + ".workLocation.address.addressCountry").size(0);
-    // FIXME: Use filter to restrict to only organizations
-    AggregationBuilder organizationsByCountry = AggregationBuilders.terms("organizations_by_country").field(
-        Record.RESOURCEKEY + ".location.address.addressCountry").size(0);
-    Resource countryAggregation = mBaseRepository.query(Arrays.asList(usersByCountry, organizationsByCountry));
+
+    AggregationBuilder byCountry = AggregationBuilders
+        .terms("by_country").field(Record.RESOURCEKEY + ".location.address.addressCountry").size(0)
+        .subAggregation(AggregationBuilders
+            .filter("organizations")
+            .filter(FilterBuilders.termFilter(Record.RESOURCEKEY + ".@type", "Organization")))
+        .subAggregation(AggregationBuilders
+            .filter("users")
+            .filter(FilterBuilders.termFilter(Record.RESOURCEKEY + ".@type", "Person")));
+
+    Resource countryAggregation = mBaseRepository.query(byCountry);
+Logger.info(countryAggregation.toString());
     Map<String,Object> scope = new HashMap<>();
     scope.put("countryAggregation", countryAggregation);
     return ok(render("Country Aggregations", "AggregationIndex/index.mustache", scope));
