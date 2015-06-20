@@ -31,7 +31,6 @@ public class AggregationIndex extends OERWorldMap {
             .filter(FilterBuilders.termFilter(Record.RESOURCEKEY + ".@type", "Person")));
 
     Resource countryAggregation = mBaseRepository.query(byCountry);
-Logger.info(countryAggregation.toString());
     Map<String,Object> scope = new HashMap<>();
     scope.put("countryAggregation", countryAggregation);
     return ok(render("Country Aggregations", "AggregationIndex/index.mustache", scope));

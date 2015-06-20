@@ -43,7 +43,6 @@ public class CountryIndex extends OERWorldMap {
     AggregationBuilder championsByCountry = AggregationBuilders.terms("champions_by_country").field(
         Record.RESOURCEKEY + ".countryChampionFor").include(id).size(0);
     Resource countryAggregation = mBaseRepository.query(byCountry);
-Logger.info(countryAggregation.toString());
 
     List<Resource> champions = mBaseRepository.esQuery("countryChampionFor:".concat(id.toUpperCase()));
     List<Resource> resources = mBaseRepository.esQuery("about.\\*.addressCountry:".concat(id.toUpperCase()));
