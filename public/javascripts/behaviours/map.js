@@ -496,11 +496,13 @@ Hijax.behaviours.map = {
               }
 
               if (feature.getId() == "RU") {
-                var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[32, 73], [175, 42]]), tfn);
+                var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[9, 74], [190, 19]]), tfn);
               } else if (feature.getId() == "US") {
-                var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[-133, 52], [-65, 25]]), tfn);
+                var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[-142, 54], [-49, 17]]), tfn);
               } else if (feature.getId() == "FR") {
-                var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[-5, 51], [-10, 42]]), tfn);
+                var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[-21, 54], [25, 37]]), tfn);
+              } else if (feature.getId() == "NL") {
+                var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[0, 54], [11, 50]]), tfn);
               } else {
                 var extent = feature.getGeometry().getExtent();
               }
