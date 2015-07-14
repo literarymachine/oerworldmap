@@ -584,74 +584,10 @@ Hijax.behaviours.map = {
     map.placemarksVectorSource.clear();
     map.placemarksVectorSource.addFeatures(placemarks);
     if (zoomToFit) {
-      map.setBoundingBox(placemarks);
+      map.world.getView().fit(map.placemarksVectorSource.getExtent(), map.world.getSize());
     } else {
-      map.resetBoundingBox();
+      map.world.getView().fit(map.countryVectorSource.getExtent(), map.world.getSize());
     }
-
-  },
-
-  resetBoundingBox : function() {
-    var map = this;
-    // Get zoom values adapted to map size
-    var zoom_values = map.getZoomValues();
-    // View
-    map.world.setView(new ol.View({
-      center: map.defaultCenter,
-      projection: map.projection,
-      zoom: zoom_values.initialZoom,
-      minZoom: zoom_values.minZoom,
-      maxZoom: zoom_values.maxZoom
-    }));
-    // User position
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var lon = position.coords.longitude;
-      var center = ol.proj.transform([lon, 0], 'EPSG:4326', map.projection.getCode());
-      center[1] = map.defaultCenter[1];
-      map.world.getView().setCenter(center);
-    });
-
-  },
-
-  setBoundingBox : function(features) {
-
-    var map = this;
-
-    // Init bounding box and transformation function
-    var boundingBox = ol.extent.createEmpty();
-    var tfn = ol.proj.getTransform('EPSG:4326', map.projection.getCode());
-
-    // Extend bounding box to include all features
-    for (var i = 0; i < features.length; i++) {
-      var feature = features[i];
-      if (feature.getId() == "RU") {
-        var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[32, 73], [175, 42]]), tfn);
-      } else if (feature.getId() == "US") {
-        var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[-133, 52], [-65, 25]]), tfn);
-      } else if (feature.getId() == "FR") {
-        var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[-8, 52], [15, 41]]), tfn);
-      } else if (feature.getId() == "NL") {
-        var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[1, 54], [10, 50]]), tfn);
-      } else if (feature.getId() == "NZ") {
-        var extent = ol.extent.applyTransform(ol.extent.boundingExtent([[160, -32], [171, -50]]), tfn);
-      } else {
-        var extent = feature.getGeometry().getExtent();
-      }
-      ol.extent.extend(boundingBox, extent);
-    }
-
-    // Special case single point
-    if (boundingBox[0] == boundingBox[2]) {
-      boundingBox[0] -= 1000000;
-      boundingBox[2] += 1000000;
-    }
-    if (boundingBox[1] == boundingBox[3]) {
-      boundingBox[1] -= 1000000;
-      boundingBox[3] += 1000000;
-    }
-
-    // Set extent of map view
-    map.world.getView().fit(boundingBox, map.world.getSize());
 
   },
 
