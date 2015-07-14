@@ -3,11 +3,13 @@ Hijax.behaviours.map = {
   container : null,
   column : null,
   world : null,
-  vector : null,
-  vectorSource : null,
   projection : null,
+  countryVectorSource : null,
+  countryVectorLayer : null,
   placemarksVectorSource : null,
   placemarksVectorLayer : null,
+  osmTileSource : null,
+  osmTileLayer : null,
 
   
   standartMapSize: [896, 655],
@@ -46,7 +48,7 @@ Hijax.behaviours.map = {
     map.column.prepend(map.container);
 
     // Country vector source
-    map.vectorSource = new ol.source.Vector({
+    map.countryVectorSource = new ol.source.Vector({
       url: '/assets/json/ne_50m_admin_0_countries_topo.json',
       format: new ol.format.TopoJSON(),
       // noWrap: true,
@@ -54,8 +56,8 @@ Hijax.behaviours.map = {
     });
 
     // Country vector layer
-    map.vector = new ol.layer.Vector({
-      source: map.vectorSource
+    map.countryVectorLayer = new ol.layer.Vector({
+      source: map.countryVectorSource
     });
 
     // Placemarks vector source
@@ -66,6 +68,15 @@ Hijax.behaviours.map = {
     // Placemarks vector layer
     map.placemarksVectorLayer = new ol.layer.Vector({
       source: map.placemarksVectorSource
+    });
+
+    // OSM tile source
+    map.osmTileSource = new ol.source.OSM({});
+
+    // OSM tile layer
+    map.osmTileLayer = new ol.layer.Tile({
+      source: map.osmTileSource,
+      opacity: 0.5
     });
 
     // Get zoom values adapted to map size
@@ -82,7 +93,7 @@ Hijax.behaviours.map = {
 
     // Map object
     map.world = new ol.Map({
-      layers: [map.vector, map.placemarksVectorLayer],
+      layers: [map.countryVectorLayer, map.osmTileLayer, map.placemarksVectorLayer],
       target: map.container,
       view: map.view
     });
@@ -122,11 +133,11 @@ Hijax.behaviours.map = {
 
     // Defer until vector source is loaded
     var deferred = new $.Deferred();
-    if (map.vectorSource.getFeatureById("BR")) { // Is this a relieable test?
+    if (map.countryVectorSource.getFeatureById("BR")) { // Is this a relieable test?
       deferred.resolve();
     } else {
-      var listener = map.vectorSource.on('change', function(e) {
-        if (map.vectorSource.getState() == 'ready') {
+      var listener = map.countryVectorSource.on('change', function(e) {
+        if (map.countryVectorSource.getState() == 'ready') {
           ol.Observable.unByKey(listener);
           deferred.resolve();
         }
@@ -381,7 +392,7 @@ Hijax.behaviours.map = {
     
     // neither performant nor elegant ...
     if( feature_type == 'country' ) {
-      var current_style = map.vector.getStyle()(feature);
+      var current_style = map.countryVectorLayer.getStyle()(feature);
       feature.setStyle(new ol.style.Style({
         fill: current_style[0].getFill(),
         stroke: new ol.style.Stroke({
@@ -409,9 +420,9 @@ Hijax.behaviours.map = {
     }
     
     if( map.getFeatureType(feature_id) == 'country' ) {
-      var feature = map.vectorSource.getFeatureById( feature_id );
+      var feature = map.countryVectorSource.getFeatureById( feature_id );
       feature.setStyle(
-        map.vector.getStyle()(feature)
+        map.countryVectorLayer.getStyle()(feature)
       );
     }
         
@@ -483,7 +494,7 @@ Hijax.behaviours.map = {
     // attach aggregations to country features
     for(var j = 0; j < aggregations["by_country"]["buckets"].length; j++) {
       var aggregation = aggregations["by_country"]["buckets"][j];
-      var feature = map.vectorSource.getFeatureById(aggregation.key.toUpperCase());
+      var feature = map.countryVectorSource.getFeatureById(aggregation.key.toUpperCase());
       if (feature) {
         var properties = feature.getProperties();
         properties.country = aggregation;
@@ -533,7 +544,7 @@ Hijax.behaviours.map = {
       
     // set style callback
     
-    map.vector.setStyle(function(feature) {
+    map.countryVectorLayer.setStyle(function(feature) {
 
       if(
         ! focused_country
@@ -739,7 +750,7 @@ Hijax.behaviours.map = {
       // extent format: [minX, minY, maxX, maxY]
 /*
       var mapSize = map.world.getSize();
-      var extent = map.vector.getSource().getExtent();
+      var extent = map.countryVectorLayer.getSource().getExtent();
       extent = [-13037508.342789244, -5000000, 13037508.342789244, 13000000]
       map.world.getView().fitExtent(extent, mapSize);
 */
