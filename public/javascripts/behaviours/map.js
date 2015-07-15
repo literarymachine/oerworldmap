@@ -40,6 +40,31 @@ Hijax.behaviours.map = {
     // Get mercator projection
     map.projection = ol.proj.get('EPSG:3857');
 
+    // Override extents
+    (
+      function() {
+        var overrides = {
+          "FR": [[-8, 52], [15, 41]],
+          "RU": [[32, 73], [175, 42]],
+          "US": [[-133, 52], [-65, 25]],
+          "NL": [[1, 54], [10, 50]],
+          "NZ": [[160, -32], [171, -50]]
+        };
+        var getGeometry = ol.Feature.prototype.getGeometry;
+        var transform = ol.proj.getTransform('EPSG:4326', map.projection.getCode());
+        ol.Feature.prototype.getGeometry = function() {
+          var result = getGeometry.call(this);
+          var id = this.getId();
+          if (id in overrides) {
+            result.getExtent = function() {
+              return ol.extent.applyTransform(ol.extent.boundingExtent(overrides[id]), transform);
+            }
+          }
+          return result;
+        }
+      }
+    )();
+
     // Styles
     map.setupStyles();
 
