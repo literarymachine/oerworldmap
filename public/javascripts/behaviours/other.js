@@ -22,7 +22,7 @@ Hijax.behaviours.other = {
     // clickable list entries
     $('[data-behaviour="linkedListEntries"]', context).each(function() {
       $( this ).on("click", "li", function(){
-        window.location = $( this ).find("h1 a").attr("href");
+        Hijax.goto( $( this ).find("h1 a"), true );
       });
     });
 

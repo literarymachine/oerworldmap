@@ -9,16 +9,22 @@ Hijax.behaviours.hfactor = {
                             .append($('body>header', context).nextAll());
     $('body', context).append(hfactor.column);
 
+    // Override default goto
+    Hijax.goto = function(a, setLocation) {
+      setLocation = setLocation || false;
+      $.get(a.attr('href'))
+        .done(function(data) {
+          hfactor.append(data, a, setLocation);
+        })
+        .fail(function(jqXHR) {
+          hfactor.append(jqXHR.responseText, a, setLocation);
+        });
+    },
+
     // Adding popstate event listener to handle browser back button  
     window.addEventListener('popstate', function(e) {
       var a = $('<a></a>').attr('href', location.pathname + location.search);
-      $.get(location.pathname + location.search)
-        .done(function(data) {
-          hfactor.append(data, a, false);
-        })
-        .fail(function(jqXHR) {
-          hfactor.append(jqXHR.responseText, a, false);
-        });
+      Hijax.goto(a, false);
       return false;
     });
 
@@ -35,13 +41,7 @@ Hijax.behaviours.hfactor = {
       var a = $(this);
 
       a.bind('click', function() {
-        $.get(a.attr('href'))
-          .done(function(data) {
-            hfactor.append(data, a, true);
-          })
-          .fail(function(jqXHR) {
-            hfactor.append(jqXHR.responseText, a, true);
-          });
+        Hijax.goto(a, true);
         return false;
       });
 

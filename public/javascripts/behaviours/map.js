@@ -110,11 +110,14 @@ Hijax.behaviours.map = {
       });
       if (feature) {
         var properties = feature.getProperties();
+        var url;
         if (properties.url) {
-          window.location = properties.url;
+          url = properties.url;
         } else {
-          window.location = "/country/" + feature.getId().toLowerCase();
+          url = "/country/" + feature.getId().toLowerCase();
+          map.world.getView().fit(feature.getGeometry().getExtent(), map.world.getSize());
         }
+        Hijax.goto($('<a></a>').attr('href', url), true);
       }
     });
 
@@ -157,7 +160,8 @@ Hijax.behaviours.map = {
       .each(function() {
         var json = JSON.parse( $(this).find('script[type="application/ld+json"]').html() );
         var markers = map.getMarkers(json, map.getResourceLabel);
-        map.addPlacemarks( markers, true );
+        map.addPlacemarks( markers );
+        map.world.getView().fit(map.placemarksVectorSource.getExtent(), map.world.getSize());
       });
 
     // Populate map with pins from resource listings
@@ -587,18 +591,11 @@ Hijax.behaviours.map = {
 
   },
 
-  addPlacemarks : function(placemarks, zoomToFit) {
-
-    var zoomToFit = zoomToFit || false;
+  addPlacemarks : function(placemarks) {
 
     var map = this;
     map.placemarksVectorSource.clear();
     map.placemarksVectorSource.addFeatures(placemarks);
-    if (zoomToFit) {
-      map.world.getView().fit(map.placemarksVectorSource.getExtent(), map.world.getSize());
-    } else {
-      map.world.getView().fit(map.countryVectorSource.getExtent(), map.world.getSize());
-    }
 
   },
 

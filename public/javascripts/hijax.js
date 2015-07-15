@@ -35,4 +35,8 @@ Hijax = {
     return context;
   },
 
+  goto : function(url) {
+    window.location = url;
+  },
+
 }
