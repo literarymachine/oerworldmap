@@ -178,6 +178,8 @@ Hijax.behaviours.map = {
 
     var map = this;
 
+    var zoomed = false;
+
     // Populate map with pins from single resources
     $('article.resource-story', context)
       .add($('div.resource-organization', context))
@@ -187,6 +189,7 @@ Hijax.behaviours.map = {
         var markers = map.getMarkers(json, map.getResourceLabel);
         map.addPlacemarks( markers );
         map.world.getView().fit(map.placemarksVectorSource.getExtent(), map.world.getSize());
+        zoomed = true;
       });
 
     // Populate map with pins from resource listings
@@ -231,6 +234,21 @@ Hijax.behaviours.map = {
       var json = JSON.parse( $(this).find('script[type="application/ld+json"]').html() );
       map.setAggregations( json );
     });
+
+    // Zoom to country
+    $('.resource.country', context).each(function() {
+      var json = JSON.parse( $(this).find('script[type="application/ld+json"]').html() );
+      var country = map.countryVectorSource.getFeatureById(json['@id']);
+      if (country) {
+        map.world.getView().fit(country.getGeometry().getExtent(), map.world.getSize());
+        zoomed = true;
+      }
+    });
+
+    // If nothing triggered a zoom, reset
+    if (!zoomed) {
+      map.world.getView().fit(map.countryVectorSource.getExtent(), map.world.getSize());
+    }
 
   },
   

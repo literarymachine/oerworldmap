@@ -1,6 +1,10 @@
-<section>
+<section class="resource country">
 
-    <h1>{{scope.name}}</h1>
+    <script type="application/ld+json">
+        {{{scope.country}}}
+    </script>
+
+    <h1>{{scope.country.name}}</h1>
 
     <hr/>
 
@@ -31,7 +35,7 @@
             <div class="img placeholder-qmark"></div>
 
             <div class="text">
-                There is no <a href="/contribute">country champion</a> for {{scope.name}}, yet. <a href="mailto:info@oerworldmap.org">Contact us</a> if you can jump in!
+                There is no <a href="/contribute">country champion</a> for {{scope.country.name}}, yet. <a href="mailto:info@oerworldmap.org">Contact us</a> if you can jump in!
             </div>
 
         </div>

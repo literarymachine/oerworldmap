@@ -1,5 +1,7 @@
 package helpers;
 
+import models.Resource;
+
 import java.text.Collator;
 import java.util.*;
 
@@ -44,6 +46,12 @@ public class Countries {
   public static String getNameFor(String aCountryCode, Locale aLocale) {
     Locale country = new Locale("en", aCountryCode);
     return country.getDisplayCountry(aLocale);
+  }
+
+  public static Resource asResource(String aCountryCode, Locale aLocale) {
+    Resource country = new Resource("Country", aCountryCode.toUpperCase());
+    country.put("name", getNameFor(aCountryCode, aLocale));
+    return country;
   }
 
 }
