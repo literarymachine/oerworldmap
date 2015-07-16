@@ -29,7 +29,7 @@ Hijax = {
   },
 
   initBehaviours : function(context) {
-    for (behaviour in Hijax.behaviours) {
+    for (var behaviour in Hijax.behaviours) {
       Hijax.initBehaviour(context, behaviour);
     }
     return context;
