@@ -1,4 +1,4 @@
-Hijax.behaviours.search = (function ($) {
+var Hijax = (function ($, Hijax) {
 
   // --- search ---
   var my = {
@@ -36,6 +36,7 @@ Hijax.behaviours.search = (function ($) {
 
   };
 
-  return my;
+  Hijax.behaviours.search = my;
+  return Hijax;
 
-})(jQuery);
+})(jQuery, Hijax);

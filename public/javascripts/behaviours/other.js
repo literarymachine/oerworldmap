@@ -1,4 +1,4 @@
-Hijax.behaviours.other = (function ($, Hijax) {
+var Hijax = (function ($, Hijax) {
 
   // --- other ---
   var my = {
@@ -33,6 +33,7 @@ Hijax.behaviours.other = (function ($, Hijax) {
 
   };
 
-  return my;
+  Hijax.behaviours.other = my;
+  return Hijax;
 
 })(jQuery, Hijax);

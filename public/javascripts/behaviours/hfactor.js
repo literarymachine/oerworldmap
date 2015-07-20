@@ -1,4 +1,4 @@
-Hijax.behaviours.hfactor = (function (Hijax) {
+var Hijax = (function ($, Hijax) {
 
   var column = null;
 
@@ -104,6 +104,7 @@ Hijax.behaviours.hfactor = (function (Hijax) {
 
   };
 
-  return my;
+  Hijax.behaviours.hfactor = my;
+  return Hijax;
 
-})(Hijax);
+})(jQuery, Hijax);

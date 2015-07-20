@@ -1,4 +1,4 @@
-Hijax.behaviours.map = (function ($, Hijax) {
+var Hijax = (function ($, Hijax) {
 
   var container = null,
       column = null,
@@ -672,7 +672,8 @@ Hijax.behaviours.map = (function ($, Hijax) {
 
   };
 
-  return my;
+  Hijax.behaviours.map =  my;
+  return Hijax;
 
 
   // Mollweide Projection
