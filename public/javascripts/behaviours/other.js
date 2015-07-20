@@ -1,32 +1,38 @@
-// --- other ---
-Hijax.behaviours.other = {
+Hijax.behaviours.other = (function ($, Hijax) {
 
-  attach: function(context) {
+  // --- other ---
+  var my = {
 
-    // placeholder polyfill
-    $('input, textarea', context).placeholder();
+    attach: function(context) {
 
-    // call for actions
-    $('a[href="#user-register"]', context).click(function(e){
-      e.preventDefault();
-      $(this).fadeOut();
-      $('#user-register').slideDown();
-    });
-    
-    $('[data-action="close"]', context).click(function(e){
-      e.preventDefault();
-      $(this).parent().slideUp();
-      $('a[href="#user-register"]', context).fadeIn();
-    });
+      // placeholder polyfill
+      $('input, textarea', context).placeholder();
 
-    // clickable list entries
-    $('[data-behaviour="linkedListEntries"]', context).each(function() {
-      $( this ).on("click", "li", function(){
-        Hijax.goto( $( this ).find("h1 a"), true );
+      // call for actions
+      $('a[href="#user-register"]', context).click(function(e){
+        e.preventDefault();
+        $(this).fadeOut();
+        $('#user-register').slideDown();
       });
-    });
 
-    
-  }
+      $('[data-action="close"]', context).click(function(e){
+        e.preventDefault();
+        $(this).parent().slideUp();
+        $('a[href="#user-register"]', context).fadeIn();
+      });
 
-}
+      // clickable list entries
+      $('[data-behaviour="linkedListEntries"]', context).each(function() {
+        $( this ).on("click", "li", function(){
+          Hijax.goto( $( this ).find("h1 a"), true );
+        });
+      });
+
+
+    }
+
+  };
+
+  return my;
+
+})(jQuery, Hijax);
