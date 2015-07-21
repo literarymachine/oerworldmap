@@ -125,6 +125,7 @@ public class Resource extends HashMap<String, Object> {
     }
   }
 
+  // TODO: call
   public ProcessingReport validate() {
     JsonSchema schema;
     ProcessingReport report;

@@ -51,7 +51,7 @@ public class ElasticsearchClient {
    * @param aClient
    * @param aEsConfig
    */
-  public ElasticsearchClient(@Nullable final Client aClient, ElasticsearchConfig aEsConfig) {
+  public ElasticsearchClient(@Nullable final Client aClient, final ElasticsearchConfig aEsConfig) {
     mClient = aClient;
     mEsConfig = aEsConfig;
   }
