@@ -71,6 +71,11 @@ var Hijax = (function ($, Hijax) {
 
         var a = $(this);
 
+        // Ignore absolute URIs
+        if (/^(?:[a-z]+:)?\/\//i.test(a.attr('href'))) {
+          return true;
+        }
+
         a.bind('click', function() {
           Hijax.goto(a, true);
           return false;
@@ -85,6 +90,11 @@ var Hijax = (function ($, Hijax) {
       $('form', context).submit(function() {
 
         var form = $(this);
+
+        // Ignore absolute URIs
+        if (/^(?:[a-z]+:)?\/\//i.test(form.attr('action'))) {
+          return true;
+        }
 
         $.ajax({
           type: form.attr('method'),
