@@ -1,19 +1,46 @@
 // --- hfactor ---
 Hijax.behaviours.hfactor = {
 
-  attach: function(context) {
+  column: null,
 
-    $('a.hijax[target]', context).each(function() {
+  init : function(context) {
+    var hfactor = this;
+    hfactor.column = $('<div role="main" class="color-scheme-text list-view column small">')
+                            .append($('body>header', context).nextAll());
+    $('body', context).append(hfactor.column);
+
+    // Adding popstate event listener to handle browser back button  
+    window.addEventListener('popstate', function(e) {
+      var a = $('<a></a>').attr('href', location.pathname + location.search);
+      $.get(location.pathname + location.search)
+        .done(function(data) {
+          hfactor.append(data, a, false);
+        })
+        .fail(function(jqXHR) {
+          hfactor.append(jqXHR.responseText, a, false);
+        });
+      return false;
+    });
+
+    return new $.Deferred().resolve();
+
+  },
+
+  attach : function(context) {
+
+    var hfactor = this;
+
+    $('a', context).each(function() {
 
       var a = $(this);
 
       a.bind('click', function() {
         $.get(a.attr('href'))
           .done(function(data) {
-            Hijax.behaviours.hfactor.append(data, a);
+            hfactor.append(data, a, true);
           })
           .fail(function(jqXHR) {
-            Hijax.behaviours.hfactor.append(jqXHR.responseText, a);
+            hfactor.append(jqXHR.responseText, a, true);
           });
         return false;
       });
@@ -24,20 +51,18 @@ Hijax.behaviours.hfactor = {
 
     });
 
-    $('form.hijax[target]', context).submit(function() {
+    $('form', context).submit(function() {
 
       var form = $(this);
-      var action = form.attr('action');
-      var method = form.attr('method');
 
       $.ajax({
-        type: method,
-        url: action,
+        type: form.attr('method'),
+        url: form.attr('action'),
         data: form.serialize()
       }).done(function(data) {
-        Hijax.behaviours.hfactor.append(data, form);
+        hfactor.append(data, form, true);
       }).fail(function(jqXHR) {
-        Hijax.behaviours.hfactor.append(jqXHR.responseText, form);
+        hfactor.append(jqXHR.responseText, form, true);
       });
 
       return false;
@@ -47,32 +72,34 @@ Hijax.behaviours.hfactor = {
   },
 
   extractBody: function(html) {
-    return $(html).filter('div[role="main"]');
+    return $(html);
   },
 
-  append: function(data, element) {
+  append: function(data, element, setLocation) {
 
-    var role = element.attr('role') || 'complementary';
-    var parent = element.closest('div[role="main"], div[role="complementary"]');
-    var html = Hijax.attachBehaviours(Hijax.behaviours.hfactor.extractBody(data));
+    var hfactor = this;
+    var role = element.attr('role') || 'main';
+    var html = Hijax.attachBehaviours($('<div></div>').append(Hijax.behaviours.hfactor.extractBody(data))).children();
+    var target = element.attr('target') || '_parent';
 
-    if ('main' == role) {
-      element.closest('body').children('div[role="main"]').attr("role", "complementary");
-    }
-
-    switch (element.attr("target")) {
-      case "_self":
-        element.replaceWith(html.children());
+    switch (target) {
+      case '_self':
+        element.replaceWith(html);
         break;
-      case "_blank":
-        html.attr("role", role);
-        parent.after(html);
+      case '_blank':
+        hfactor.column.attr("role", role);
+        hfactor.column.html(html);
         break;
-      case "_parent":
+      case '_parent':
       default:
-        html.attr("role", role);
-        parent.replaceWith(html);
+        hfactor.column.attr("role", role);
+        hfactor.column.html(html);
         break;
+    }
+    
+    if (true == setLocation && '_parent' == target) {
+      history.pushState(null, null, element.attr('href')
+          || element.attr('action') + '?' + $.param(element.find('input')));
     }
 
   }

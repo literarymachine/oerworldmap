@@ -1,51 +1,55 @@
-<div role="complementary" data-view="map" data-focus="{{#scope.mentions}}{{@id}} {{/scope.mentions}}" class="color-scheme-map column medium">
-    <a href="/aggregation/" class="hijax transclude map-view-hidden" target="_self">Aggregations</a>
-</div>
+{{#scope}}
+    <article class="resource-story">
+        <script type="application/ld+json">
+            {{{.}}}
+        </script>
+        <h1><i class="fa fa-comment"></i> {{#name}}{{@value}}{{/name}}</h1>
 
-<div role="main" class="color-scheme-text container column medium">
-    {{#scope}}
-        <article class="resource-story">
-            <script type="application/ld+json">
-                {{{.}}}
-            </script>
-            <h1><i class="fa fa-comment"></i> {{#name}}{{@value}}{{/name}}</h1>
-            
-            <div class="clearfix">
-                <strong>Contributed by</strong>
-                <ul class="csl">
-                  {{#creator}}
-                      <li>
-                          <a href="/resource/{{@id}}">
-                            {{#name}}{{@value}}{{/name}}
-                          </a>
-                      </li>
-                  {{/creator}}
-                </ul>
-            </div>
-            
-            {{#image}}<img src="{{.}}" width="250" />{{/image}}
-          {{#articleBody}}{{{@value}}}{{/articleBody}}
-          {{#keywords.size}}
-          <h2>Keywords</h2>
-          <ul>
-              {{#keywords}}<li><a href='/resource/?q="{{.}}" '>{{.}}</a></li>{{/keywords}}
-          </ul>
-          {{/keywords.size}}
-        </article>
-        <aside>
-            <h2>Related</h2>
-            {{#mentions}}
-              <div style="border: 1px solid black; padding: 5px; margin: 10px; float: left;">
-                  <h3>
+        <div class="clearfix">
+            <strong>Contributed by</strong>
+            <ul class="csl">
+              {{#creator}}
+                  <li>
                       <a href="/resource/{{@id}}">
-                          {{#name}}
-                            {{#@value}}{{.}}{{/@value}}
-                          {{/name}}
+                        {{#name}}{{@value}}{{/name}}
                       </a>
-                  </h3>
-                  {{#location}}{{>ResourceIndex/Place/read.mustache}}{{/location}}
-              </div>
-            {{/mentions}}
-        </aside>
-    {{/scope}}
-</div>
+                  </li>
+              {{/creator}}
+            </ul>
+        </div>
+
+        {{#image}}<img src="{{.}}" width="250" />{{/image}}
+      {{#articleBody}}{{{@value}}}{{/articleBody}}
+      {{#keywords.size}}
+      <h2>Keywords</h2>
+      <ul>
+          {{#keywords}}<li><a href='/resource/?q="{{.}}" '>{{.}}</a></li>{{/keywords}}
+      </ul>
+      {{/keywords.size}}
+    </article>
+    <aside>
+        <h2>Related</h2>
+
+        <ul class="related-list">
+          {{#mentions}}
+              <li about="{{@id}}">
+                {{#?Organization}}
+                  {{>ResourceIndex/Organization/link.mustache}}
+                {{/?Organization}}
+                {{#?Person}}
+                  {{>ResourceIndex/Person/link.mustache}}
+                {{/?Person}}
+                {{#?Service}}
+                  {{>ResourceIndex/Service/link.mustache}}
+                {{/?Service}}
+                {{#?Action}}
+                  {{>ResourceIndex/Action/link.mustache}}
+                {{/?Action}}
+              </li>
+          {{/mentions}}
+        </ul>
+      {{^mentions}}
+          <em>No related entities found</em>
+      {{/mentions}}
+    </aside>
+{{/scope}}

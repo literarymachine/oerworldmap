@@ -19,16 +19,13 @@ Hijax.behaviours.other = {
       $('a[href="#user-register"]', context).fadeIn();
     });
 
-    // layout
-    $('div[role="main"], div[role="complementary"]', context).each(function() {
-      if (1 == $(this).index()) {
-        $(this).css('left', '0');
-        $(this).css('right', 'auto');
-      } else {
-        $(this).css('right', '0');
-        $(this).css('left', 'auto');
-      }
+    // clickable list entries
+    $('[data-behaviour="linkedListEntries"]', context).each(function() {
+      $( this ).on("click", "li", function(){
+        window.location = $( this ).find("h1 a").attr("href");
+      });
     });
+
     
   }
 

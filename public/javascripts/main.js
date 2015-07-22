@@ -7,7 +7,6 @@ document.documentElement.className = 'js';
 $(document).ready(function() {
   
   $('body').addClass("layout-fixed");
-
-  Hijax.attachBehaviours(document);
+  Hijax.initBehaviours(document);
 
 });

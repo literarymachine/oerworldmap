@@ -9,7 +9,7 @@ Hijax.behaviours.search = {
         regex = /([^ ]+:[^ ]+)/g;
 
     if (query) {
-      var filters = query.match(regex);
+      /*var filters = query.match(regex);
       for (var i in filters) {
         var filter = $('<div class="query-filter"><span data-value="' + filters[i] + '">' + filters[i] + '</span></div>');
         filter.append($('<input type="submit" value="X" />').click(function() {
@@ -17,7 +17,7 @@ Hijax.behaviours.search = {
           $(this).closest('div.query-filter').hide();
         }));
         form.append(filter);
-      }
+      }*/
       input.val(query.replace(regex, '').trim());
     }
 
