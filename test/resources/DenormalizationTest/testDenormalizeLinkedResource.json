@@ -1,0 +1,10 @@
+{
+  "@type": "Article",
+  "name": "Ganz spannend!",
+  "author": [
+    {
+      "@id": "1",
+      "@type": "Person"
+    }
+  ]
+}

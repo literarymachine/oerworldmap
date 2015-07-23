@@ -210,6 +210,69 @@ public class Resource extends HashMap<String, Object> {
     return true;
   }
 
+  private boolean compare(Object aObject, Object aOther) {
+    if (aObject instanceof Resource && aOther instanceof Resource) {
+      return ((Resource) aObject).get(JsonLdConstants.ID).equals(((Resource) aOther).get(JsonLdConstants.ID));
+    } else {
+      return aObject.equals(aOther);
+    }
+  }
+
+  public void merge(String aKey, Object aValue) {
+    if (containsKey(aKey)) {
+      Object value = get(aKey);
+      if (value instanceof List && aValue instanceof List) {
+        for (Object v : (List) aValue) {
+          int i;
+          boolean eq = false;
+          for (i = 0; i < ((List) value).size(); i++) {
+            if (compare(v, ((List) value).get(i))) {
+              eq = true;
+              break;
+            }
+          }
+          if (eq) {
+            ((List) value).remove(i);
+          }
+        }
+        put(aKey, ((List) value).addAll((List) aValue));
+      } else if (value instanceof List) {
+        int i;
+        boolean eq = false;
+        for (i = 0; i < ((List) value).size(); i++) {
+          if (compare(aValue, ((List) value).get(i))) {
+            eq = true;
+            break;
+          }
+        }
+        if (eq) {
+          ((List) value).remove(i);
+        }
+        put(aKey, ((List) value).add(aValue));
+      } else if (aValue instanceof List) {
+        int i;
+        boolean eq = false;
+        for (i = 0; i < ((List) aValue).size(); i++) {
+          if (compare(aValue, ((List) aValue).get(i))) {
+            eq = true;
+            break;
+          }
+        }
+        if (!eq) {
+          put(aKey, ((List) aValue).add(value));
+        }
+      } else {
+        if (compare(value, aValue)) {
+          put(aKey, aValue);
+        } else {
+          put(aKey, Arrays.asList(value, aValue));
+        }
+      }
+    } else {
+      put(aKey, aValue);
+    }
+  }
+
   public boolean hasId() {
     return containsKey(JsonLdConstants.ID);
   }
