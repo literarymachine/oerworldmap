@@ -1,25 +1,42 @@
 package controllers;
 
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template;
 import helpers.Countries;
 import helpers.FilesConfig;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -38,9 +55,6 @@ import services.ElasticsearchClient;
 import services.ElasticsearchConfig;
 import services.ElasticsearchRepository;
 
-import com.github.mustachejava.DefaultMustacheFactory;
-import com.github.mustachejava.Mustache;
-import com.github.mustachejava.MustacheFactory;
 
 /**
  * @author fo
@@ -113,11 +127,20 @@ public abstract class OERWorldMap extends Controller {
     mustacheData.put("i18n", i18n);
     mustacheData.put("user", Secured.getHttpBasicAuthUser(Http.Context.current()));
 
-    MustacheFactory mf = new DefaultMustacheFactory();
-    Mustache template = mf.compile(play.Play.application().path().getAbsolutePath() + "/app/mustache/" + templatePath);
-    Writer writer = new StringWriter();
-    template.execute(writer, mustacheData);
-    return views.html.main.render(pageTitle, Html.apply(writer.toString()), getClientTemplates());
+    ClassLoader classLoader = Play.application().classloader();
+    Mustache.Compiler compiler = Mustache.compiler().withLoader(new Mustache.TemplateLoader() {
+        @Override
+        public Reader getTemplate(String templatePath) throws Exception {
+          Logger.info("Attempting to load template " + templatePath);
+          return new InputStreamReader(classLoader.getResourceAsStream("public/mustache/" + templatePath));
+        }
+      }
+    );
+
+    Template template = compiler.defaultValue("").compile(new InputStreamReader(
+        classLoader.getResourceAsStream("public/mustache/" + templatePath)));
+    return views.html.main.render(pageTitle, Html.apply(template.execute(mustacheData)), getClientTemplates());
+
   }
 
   protected static Html render(String pageTitle, String templatePath, Map<String, Object> scope) {
@@ -129,27 +152,75 @@ public abstract class OERWorldMap extends Controller {
   }
 
   private static String getClientTemplates() {
+
     final List<String> templates = new ArrayList<>();
+    final String dir = "public/mustache/ClientTemplates/";
+    final ClassLoader classLoader = Play.application().classloader();
+
+    String[] paths = new String[0];
     try {
-      Files.walk(Paths.get(play.Play.application().path().getAbsolutePath() + "/app/mustache/ClientTemplates"))
-          .forEach(new Consumer<Path>() {
-            @Override
-            public void accept(Path path) {
-              try {
-                String template = "<script id=\"".concat(path.getFileName().toString())
-                    .concat("\" type=\"text/mustache\">\n");
-                template = template.concat(new String(Files.readAllBytes(path), StandardCharsets.UTF_8));
-                template = template.concat("</script>\n\n");
-                templates.add(template);
-              } catch (IOException e) {
-                Logger.error(e.toString());
-              }
-            }
-          });
-    } catch (IOException e) {
+      paths = getResourceListing(dir, classLoader);
+    } catch (URISyntaxException | IOException e) {
       Logger.error(e.toString());
     }
+
+    for (String path : paths) {
+      try {
+        String template = "<script id=\"".concat(path).concat("\" type=\"text/mustache\">\n");
+        template = template.concat(IOUtils.toString(classLoader.getResourceAsStream(dir + path)));
+        template = template.concat("</script>\n\n");
+        templates.add(template);
+      } catch (IOException e) {
+        Logger.error(e.toString());
+      }
+    }
+
     return String.join("\n", templates);
+
+  }
+
+  /**
+   * List directory contents for a resource folder. Not recursive.
+   * This is basically a brute-force implementation.
+   * Works for regular files and also JARs.
+   *
+   * Adapted from http://www.uofr.net/~greg/java/get-resource-listing.html
+   *
+   * @param path Should end with "/", but not start with one.
+   * @return Just the name of each member item, not the full paths.
+   * @throws URISyntaxException
+   * @throws IOException
+   */
+  private static String[] getResourceListing(String path, ClassLoader classLoader)
+      throws URISyntaxException, IOException {
+
+    URL dirURL = classLoader.getResource(path);;
+    if (dirURL == null) {
+      return new File(play.Play.application().path().getAbsolutePath().concat("/").concat(path)).list();
+    } else if (dirURL.getProtocol().equals("jar")) {
+      String jarPath = dirURL.getPath().substring(5, dirURL.getPath().indexOf("!")); //strip out only the JAR file
+      JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
+      Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+      Set<String> result = new HashSet<String>(); //avoid duplicates in case it is a subdirectory
+      while(entries.hasMoreElements()) {
+        String name = entries.nextElement().getName();
+        if (name.startsWith(path)) { //filter according to the path
+          String entry = name.substring(path.length());
+          int checkSubdir = entry.indexOf("/");
+          if (checkSubdir >= 0) {
+            // if it is a subdirectory, we just return the directory name
+            entry = entry.substring(0, checkSubdir);
+          }
+          if (! entry.equals("")) {
+            result.add(entry);
+          }
+        }
+      }
+      return result.toArray(new String[result.size()]);
+    }
+
+    throw new UnsupportedOperationException("Cannot list files for URL " + dirURL);
+
   }
 
 }
