@@ -10,7 +10,8 @@
 
             <h1>
                 <a href="/resource/{{@id}}">
-                    {{#name}}{{@value}}{{/name}}
+                    {{#this.name}}{{@value}}{{/this.name}}
+                    {{^this.name}}{{[@id]}}{{/this.name}}
                 </a>
             </h1>
 

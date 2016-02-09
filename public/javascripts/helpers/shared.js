@@ -246,6 +246,33 @@ if (!Object.keys) {
   return new UrlTemplate();
 }));
 
+Handlebars.registerHelper('localized', function(list, options) {
+  // Get requested language from Java or JS
+  language = java.util.Locale.getDefault() || navigator.language || navigator.userLanguage;
+  var result = '';
+  // Check for entries in requested language
+  for (var i = 0; i < list.length; i++) {
+    if (list[i]['@language'] == language) {
+      result = result + options.fn(list[i]);
+    }
+  }
+  // Requested language not available, default to en
+  if (result == '') {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i]['@language'] == 'en') {
+        result = result + options.fn(list[i]);
+      }
+    }
+  }
+  // Neither requested language nor en available, return everything
+  if (result == '') {
+    for (var i = 0; i < list.length; i++) {
+      result = result + options.fn(list[i]);
+    }
+  }
+  return result;
+});
+
 Handlebars.registerHelper('getField', function (string, options) {
   var parts = string.split('.');
   var field = parts[parts.length -1];

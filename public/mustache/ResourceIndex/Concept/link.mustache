@@ -3,5 +3,6 @@
     <span class="hidden">{{this.notation}}</span>
     <a href="{{getResourceUrl @id}}">
         {{#this.name}}{{@value}}{{/this.name}}
+        {{^this.name}}{{[@id]}}{{/this.name}}
     </a>
 </span>
