@@ -59,8 +59,30 @@ public class Authorized extends Action.Simple {
   @Override
   public F.Promise<Result> call(Http.Context ctx) throws Throwable {
 
+    // Extract parameters via route pattern
+    Pattern routePattern = Pattern.compile("\\$([^<]+)<([^>]+)>");
+    Matcher routePatternMatcher = routePattern.matcher(ctx.args.get(Routes.ROUTE_PATTERN).toString());
+    List<String> parameterNames = new ArrayList<>();
+    while (routePatternMatcher.find()) {
+      parameterNames.add(routePatternMatcher.group(1));
+    }
+
+    Map<String, String> parameters = new HashMap<>();
+    if (!parameterNames.isEmpty()) {
+      String regex = routePatternMatcher.replaceAll("($2)");
+      Pattern path = Pattern.compile(regex);
+      Matcher parts = path.matcher(ctx.request().path());
+      int i = 0;
+      while (parts.find()) {
+        parameters.put(parameterNames.get(i), parts.group(1));
+        i++;
+      }
+    }
+
     String activity = ctx.args.get(Routes.ROUTE_CONTROLLER).toString()
-        .concat(".").concat(ctx.args.get(Routes.ROUTE_ACTION_METHOD).toString());
+      .concat(".").concat(ctx.args.get(Routes.ROUTE_ACTION_METHOD).toString())
+      .concat("(").concat(String.join(" ", parameters.values().toArray(new String[parameters.size()]))).concat(")");
+
     String username = getHttpBasicAuthUser(ctx);
 
     Resource user;
@@ -80,6 +102,7 @@ public class Authorized extends Action.Simple {
 
     ctx.args.put("user", user);
 
+    // Admin is allowed anything
     if (mPermissions.get(activity) != null) {
       mPermissions.get(activity).add("admin");
     } else {
@@ -87,25 +110,6 @@ public class Authorized extends Action.Simple {
       permissions.add("guest");
       permissions.add("admin");
       mPermissions.put(activity, permissions);
-    }
-
-    // Extract parameters via route pattern
-    Pattern routePattern = Pattern.compile("\\$([^<]+)<([^>]+)>");
-    Matcher routePatternMatcher = routePattern.matcher(ctx.args.get(Routes.ROUTE_PATTERN).toString());
-    List<String> parameterNames = new ArrayList<>();
-    while (routePatternMatcher.find()) {
-      parameterNames.add(routePatternMatcher.group(1));
-    }
-
-    Map<String, String> parameters = new HashMap<>();
-    if (!parameterNames.isEmpty()) {
-      String regex = routePatternMatcher.replaceAll("($2)");
-      Pattern path = Pattern.compile(regex);
-      Matcher parts = path.matcher(ctx.request().path());
-      int i = 0;
-      while (parts.find()) {
-        parameters.put(parameterNames.get(i), parts.group(1));
-      }
     }
 
     // FIXME: activity based auth should make this superfluous,
@@ -148,10 +152,10 @@ public class Authorized extends Action.Simple {
 
     for(Map.Entry<String, List<String>> role : mRoles.entrySet()) {
       if (role.getValue().contains(user.getId()) || role.getValue().contains(user.getAsString("email"))) {
-        Logger.debug("Adding role " + role.getKey() + " for " + user.getId());
+        //Logger.debug("Adding role " + role.getKey() + " for " + user.getId());
         roles.add(role.getKey());
       } else {
-        Logger.debug("Not adding role " + role.getKey() + " for " + user.getId());
+        //Logger.debug("Not adding role " + role.getKey() + " for " + user.getId());
       }
     }
 
@@ -177,6 +181,7 @@ public class Authorized extends Action.Simple {
         activities.add(activity.getKey());
       }
     }
+    System.out.println(activities);
     return activities;
   }
 
