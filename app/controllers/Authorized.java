@@ -81,7 +81,9 @@ public class Authorized extends Action.Simple {
 
     String activity = ctx.args.get(Routes.ROUTE_CONTROLLER).toString()
       .concat(".").concat(ctx.args.get(Routes.ROUTE_ACTION_METHOD).toString())
-      .concat("(").concat(String.join(" ", parameters.values().toArray(new String[parameters.size()]))).concat(")");
+      .concat("!").concat(String.join(", ", parameters.values().toArray(new String[parameters.size()]))).concat("!");
+
+    Logger.debug("Requested activity: " + activity);
 
     String username = getHttpBasicAuthUser(ctx);
 
@@ -102,22 +104,14 @@ public class Authorized extends Action.Simple {
 
     ctx.args.put("user", user);
 
-    // Admin is allowed anything
-    if (mPermissions.get(activity) != null) {
-      mPermissions.get(activity).add("admin");
-    } else {
-      List<String> permissions = new ArrayList<>();
-      permissions.add("guest");
-      permissions.add("admin");
-      mPermissions.put(activity, permissions);
-    }
-
     // FIXME: activity based auth should make this superfluous,
     // but currently needed in front end templates
     user.put("roles", getUserRoles(user, parameters));
 
     QueryContext queryContext;
-    if (getUserActivities(user, parameters).contains(activity)) {
+    boolean isAdmin = getUserRoles(user, parameters).contains("admin");
+    if (isAdmin || containsActivity(getUserActivities(user, parameters, filterPermissions(activity)), activity)) {
+    //if (isAdmin || getUserActivities(user, parameters).contains(activity)) {
       queryContext = new QueryContext(user.getId(), getUserRoles(user, parameters));
       Logger.info("Authorized " + user.getId() + " for " + activity + " with " + parameters);
     } else {
@@ -127,7 +121,7 @@ public class Authorized extends Action.Simple {
         ctx.response().setHeader(WWW_AUTHENTICATE, REALM);
         return F.Promise.pure(Results.unauthorized(OERWorldMap.render("Not authenticated", "Secured/token.mustache")));
       } else {
-        return F.Promise.pure(Results.forbidden(OERWorldMap.render("Not authenticated", "Secured/token.mustache")));
+        return F.Promise.pure(Results.forbidden(OERWorldMap.render("Not authorized", "Secured/token.mustache")));
       }
 
     }
@@ -137,10 +131,10 @@ public class Authorized extends Action.Simple {
 
   }
 
-  public List<String> getUserActivities(Resource user, Map<String, String> parameters) {
+  public List<String> getUserActivities(Resource user, Map<String, String> parameters, Map<String, List<String>> permissions) {
     List<String> activities = new ArrayList<>();
     for (String role : getUserRoles(user, parameters)) {
-      List<String> roleActivities = getRoleActivities(role);
+      List<String> roleActivities = getRoleActivities(role, permissions);
       activities.addAll(roleActivities);
     }
     return activities;
@@ -169,20 +163,49 @@ public class Authorized extends Action.Simple {
         roles.add("owner");
       }
     }
-
+    Logger.debug("Roles " + roles);
     return roles;
 
   }
 
-  public List<String> getRoleActivities(String role) {
+  public List<String>  getRoleActivities(String role, Map<String, List<String>> permissions) {
+    Logger.debug("Permissions" + permissions);
     List<String> activities = new ArrayList<>();
-    for(Map.Entry<String, List<String>> activity : mPermissions.entrySet()) {
+    for(Map.Entry<String, List<String>> activity : permissions.entrySet()) {
       if (activity.getValue().contains(role)) {
         activities.add(activity.getKey());
       }
     }
-    System.out.println(activities);
+    Logger.debug("Role activities " + activities);
     return activities;
+  }
+
+  // Reduce mPermissions based on current request so that first match takes precedence:
+  // if controller.method!someId! is restricted, controller.method!.*! should not take over
+  private Map<String, List<String>> filterPermissions(String aRequestedActivity) {
+    Map<String, List<String>> permissions = new HashMap<>();
+    for(Map.Entry<String, List<String>> permission : mPermissions.entrySet()) {
+      if (!containsActivity(new ArrayList<>(permissions.keySet()), aRequestedActivity)) {
+        permissions.put(permission.getKey(), permission.getValue());
+      }
+    }
+    Logger.debug("Unfiltered permissions " + mPermissions);
+    Logger.debug("Filtered permissions " + permissions);
+    return permissions;
+  }
+
+  private boolean containsActivity(List<String> aActivityList, String aActivity) {
+    Logger.debug("Activity list " + aActivityList);
+    for (String activity : aActivityList) {
+      Pattern pattern = Pattern.compile(activity);
+      if (pattern.matcher(aActivity).matches()) {
+        Logger.debug("Match " + activity + " " + aActivity);
+        return true;
+      } else {
+        Logger.debug("No match " + activity + " " + aActivity);
+      }
+    }
+    return false;
   }
 
   private static String getHttpBasicAuthUser(Http.Context ctx) {
