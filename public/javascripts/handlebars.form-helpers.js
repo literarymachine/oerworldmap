@@ -1,3 +1,9 @@
+var console = console || {
+  log: function(message) {
+    java.lang.System.out.println(JSON.stringify(message, null, 2));
+  }
+};
+
 /**
  * handlebars.form-helpers.js
  * https://github.com/badsyntax/handlebars-form-helpers

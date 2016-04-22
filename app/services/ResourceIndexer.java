@@ -39,6 +39,7 @@ public class ResourceIndexer {
     "    OPTIONAL { ?s2 ?p2 ?s1 . } ." +
     "}";
 
+  // TODO: inject optional history to get indexing metadata
   public ResourceIndexer(Model aDb, Writable aTargetRepo) {
 
     this.mDb = aDb;
@@ -72,7 +73,6 @@ public class ResourceIndexer {
     try {
       for (String id : commitScope) {
         String query = String.format(SCOPE_QUERY_TEMPLATE, id);
-        Logger.debug(query);
         try (QueryExecution queryExecution = QueryExecutionFactory.create(QueryFactory.create(query), mDb)) {
           ResultSet rs = queryExecution.execSelect();
           while (rs.hasNext()) {

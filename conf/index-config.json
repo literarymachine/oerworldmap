@@ -2,6 +2,10 @@
   "mappings": {
     "WebPage": {
       "properties": {
+        "dateModified": {
+          "type": "date", 
+          "format": "dateOptionalTime"
+        }, 
         "about": {
           "properties": {
             "articleBody": {
@@ -16,16 +20,8 @@
               }
             }, 
             "endDate": {
-              "properties": {
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "@value": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }
-              }
+              "index": "not_analyzed", 
+              "type": "string"
             }, 
             "creator": {
               "properties": {
@@ -123,8 +119,7 @@
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
@@ -134,8 +129,7 @@
                         }, 
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -147,13 +141,11 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
+                          "type": "string"
                         }
                       }
                     }
@@ -229,115 +221,9 @@
             "sameAs": {
               "type": "string"
             }, 
-            "scopeNote": {
-              "properties": {
-                "@value": {
-                  "type": "string"
-                }, 
-                "@language": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }
-              }
-            }, 
             "image": {
               "index": "not_analyzed", 
               "type": "string"
-            }, 
-            "narrower": {
-              "properties": {
-                "name": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "notation": {
-                  "type": "string"
-                }, 
-                "@id": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "narrower": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "broader": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "scopeNote": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "inScheme": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }
-              }
             }, 
             "mainEntityOf": {
               "properties": {
@@ -555,9 +441,6 @@
                     }
                   }
                 }, 
-                "telephone": {
-                  "type": "string"
-                }, 
                 "sameAs": {
                   "type": "string"
                 }, 
@@ -607,8 +490,7 @@
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
@@ -618,8 +500,7 @@
                         }, 
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -631,13 +512,11 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
+                          "type": "string"
                         }
                       }
                     }
@@ -875,8 +754,7 @@
                       "properties": {
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressLocality": {
                           "type": "string", 
@@ -888,24 +766,15 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }
                       }
                     }
                   }
                 }, 
                 "startTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "funder": {
                   "properties": {
@@ -942,16 +811,8 @@
                   }
                 }, 
                 "endTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "@id": {
                   "index": "not_analyzed", 
@@ -980,37 +841,14 @@
             "result": {
               "properties": {
                 "startDate": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "about": {
                   "properties": {
                     "@id": {
                       "index": "not_analyzed", 
                       "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
                     }, 
                     "location": {
                       "properties": {
@@ -1028,15 +866,13 @@
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.@type"
+                          "type": "string"
                         }, 
                         "address": {
                           "properties": {
                             "addressCountry": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.addressCountry"
+                              "type": "string"
                             }, 
                             "addressLocality": {
                               "type": "string", 
@@ -1052,13 +888,11 @@
                             }, 
                             "postalCode": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.postalCode"
+                              "type": "string"
                             }, 
                             "@type": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.@type"
+                              "type": "string"
                             }
                           }
                         }
@@ -1100,21 +934,6 @@
                     "@id": {
                       "index": "not_analyzed", 
                       "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
                     }
                   }
                 }, 
@@ -1165,104 +984,16 @@
                 }
               }
             }, 
-            "broader": {
+            "keywords": {
+              "type": "string"
+            }, 
+            "licenseConcept": {
               "properties": {
-                "name": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "notation": {
-                  "type": "string"
-                }, 
-                "topConceptOf": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
                 "@id": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "narrower": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "broader": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "inScheme": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "@type": {
                   "index": "not_analyzed", 
                   "type": "string"
                 }
               }
-            }, 
-            "keywords": {
-              "type": "string"
             }, 
             "organizer": {
               "properties": {
@@ -1278,6 +1009,29 @@
                   }
                 }, 
                 "organizerFor": {
+                  "properties": {
+                    "@id": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }, 
+                    "@type": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }, 
+                    "name": {
+                      "properties": {
+                        "@value": {
+                          "type": "string"
+                        }, 
+                        "@language": {
+                          "index": "not_analyzed", 
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }, 
+                "memberOf": {
                   "properties": {
                     "@id": {
                       "index": "not_analyzed", 
@@ -1373,8 +1127,7 @@
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
@@ -1384,8 +1137,7 @@
                         }, 
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -1397,13 +1149,11 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
+                          "type": "string"
                         }
                       }
                     }
@@ -1465,351 +1215,14 @@
                       "type": "string"
                     }
                   }
-                }
-              }
-            }, 
-            "inScheme": {
-              "properties": {
-                "@id": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }
-              }
-            }, 
-            "alternateName": {
-              "properties": {
-                "@value": {
-                  "type": "string"
-                }, 
-                "@language": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }
-              }
-            }, 
-            "funderOf": {
-              "properties": {
-                "description": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "sameAs": {
-                  "type": "string"
-                }, 
-                "image": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "agent": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "url": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "location": {
-                  "type": "object"
-                }, 
-                "startTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "funder": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "alternateName": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "endTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "@id": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "email": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "name": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }, 
-            "participant": {
-              "properties": {
-                "description": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "sameAs": {
-                  "type": "string"
-                }, 
-                "image": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "url": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "location": {
-                  "properties": {
-                    "geo": {
-                      "properties": {
-                        "lat": {
-                          "type": "double", 
-                          "copy_to": "about.location.geo.lat"
-                        }, 
-                        "lon": {
-                          "type": "double", 
-                          "copy_to": "about.location.geo.lon"
-                        }
-                      }
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
-                    }, 
-                    "address": {
-                      "properties": {
-                        "addressLocality": {
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressLocality"
-                        }, 
-                        "addressCountry": {
-                          "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
-                        }, 
-                        "addressRegion": {
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressRegion"
-                        }, 
-                        "streetAddress": {
-                          "type": "string", 
-                          "copy_to": "about.location.address.streetAddress"
-                        }, 
-                        "postalCode": {
-                          "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
-                        }, 
-                        "@type": {
-                          "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "provides": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "alternateName": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "participantIn": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "@id": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "email": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "name": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }, 
-            "availableChannel": {
-              "properties": {
-                "serviceUrl": {
-                  "type": "string"
-                }, 
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "availableLanguage": {
-                  "index": "not_analyzed", 
-                  "type": "string"
                 }
               }
             }, 
             "mainEntity": {
               "properties": {
                 "startDate": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "about": {
                   "properties": {
@@ -1833,15 +1246,13 @@
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.@type"
+                          "type": "string"
                         }, 
                         "address": {
                           "properties": {
                             "addressCountry": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.addressCountry"
+                              "type": "string"
                             }, 
                             "addressLocality": {
                               "type": "string", 
@@ -1857,13 +1268,11 @@
                             }, 
                             "postalCode": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.postalCode"
+                              "type": "string"
                             }, 
                             "@type": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.@type"
+                              "type": "string"
                             }
                           }
                         }
@@ -1965,16 +1374,8 @@
                   "type": "object"
                 }, 
                 "startTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "provider": {
                   "properties": {
@@ -2011,16 +1412,8 @@
                   }
                 }, 
                 "endTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "@id": {
                   "index": "not_analyzed", 
@@ -2043,13 +1436,256 @@
                 }
               }
             }, 
-            "topConceptOf": {
+            "alternateName": {
               "properties": {
+                "@value": {
+                  "type": "string"
+                }, 
+                "@language": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }
+              }
+            }, 
+            "funderOf": {
+              "properties": {
+                "description": {
+                  "properties": {
+                    "@value": {
+                      "type": "string"
+                    }, 
+                    "@language": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }
+                  }
+                }, 
+                "sameAs": {
+                  "type": "string"
+                }, 
+                "image": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "agent": {
+                  "properties": {
+                    "@id": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }, 
+                    "@type": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }, 
+                    "name": {
+                      "properties": {
+                        "@value": {
+                          "type": "string"
+                        }, 
+                        "@language": {
+                          "index": "not_analyzed", 
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }, 
+                "@type": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "url": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "location": {
+                  "type": "object"
+                }, 
+                "startTime": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "funder": {
+                  "properties": {
+                    "@id": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }, 
+                    "@type": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }, 
+                    "name": {
+                      "properties": {
+                        "@value": {
+                          "type": "string"
+                        }, 
+                        "@language": {
+                          "index": "not_analyzed", 
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }, 
+                "alternateName": {
+                  "properties": {
+                    "@value": {
+                      "type": "string"
+                    }, 
+                    "@language": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }
+                  }
+                }, 
+                "endTime": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
                 "@id": {
                   "index": "not_analyzed", 
                   "type": "string"
                 }, 
+                "email": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "name": {
+                  "properties": {
+                    "@value": {
+                      "type": "string"
+                    }, 
+                    "@language": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }, 
+            "participant": {
+              "properties": {
+                "description": {
+                  "properties": {
+                    "@value": {
+                      "type": "string"
+                    }, 
+                    "@language": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }
+                  }
+                }, 
+                "sameAs": {
+                  "type": "string"
+                }, 
+                "image": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
                 "@type": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "url": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "location": {
+                  "properties": {
+                    "geo": {
+                      "properties": {
+                        "lat": {
+                          "type": "double", 
+                          "copy_to": "about.location.geo.lat"
+                        }, 
+                        "lon": {
+                          "type": "double", 
+                          "copy_to": "about.location.geo.lon"
+                        }
+                      }
+                    }, 
+                    "address": {
+                      "properties": {
+                        "addressCountry": {
+                          "index": "not_analyzed", 
+                          "type": "string"
+                        }, 
+                        "addressLocality": {
+                          "type": "string", 
+                          "copy_to": "about.location.address.addressLocality"
+                        }, 
+                        "streetAddress": {
+                          "type": "string", 
+                          "copy_to": "about.location.address.streetAddress"
+                        }, 
+                        "postalCode": {
+                          "index": "not_analyzed", 
+                          "type": "string"
+                        }, 
+                        "addressRegion": {
+                          "type": "string", 
+                          "copy_to": "about.location.address.addressRegion"
+                        }
+                      }
+                    }
+                  }
+                }, 
+                "participantIn": {
+                  "properties": {
+                    "@id": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }, 
+                    "@type": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }, 
+                    "name": {
+                      "properties": {
+                        "@value": {
+                          "type": "string"
+                        }, 
+                        "@language": {
+                          "index": "not_analyzed", 
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }, 
+                "@id": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "email": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "name": {
+                  "properties": {
+                    "@value": {
+                      "type": "string"
+                    }, 
+                    "@language": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }, 
+            "availableChannel": {
+              "properties": {
+                "serviceUrl": {
+                  "type": "string"
+                }, 
+                "@type": {
+                  "index": "not_analyzed", 
+                  "type": "string"
+                }, 
+                "availableLanguage": {
                   "index": "not_analyzed", 
                   "type": "string"
                 }
@@ -2243,8 +1879,7 @@
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
@@ -2254,8 +1889,7 @@
                         }, 
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -2267,13 +1901,11 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
+                          "type": "string"
                         }
                       }
                     }
@@ -2373,15 +2005,13 @@
                 }, 
                 "@type": {
                   "index": "not_analyzed", 
-                  "type": "string", 
-                  "copy_to": "about.location.@type"
+                  "type": "string"
                 }, 
                 "address": {
                   "properties": {
                     "addressCountry": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.address.addressCountry"
+                      "type": "string"
                     }, 
                     "addressLocality": {
                       "type": "string", 
@@ -2397,13 +2027,11 @@
                     }, 
                     "postalCode": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.address.postalCode"
+                      "type": "string"
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.address.@type"
+                      "type": "string"
                     }
                   }
                 }
@@ -2411,34 +2039,15 @@
             }, 
             "provides": {
               "properties": {
-                "license": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                "startDate": {
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "about": {
                   "properties": {
                     "@id": {
                       "index": "not_analyzed", 
                       "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
                     }, 
                     "location": {
                       "properties": {
@@ -2456,15 +2065,13 @@
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.@type"
+                          "type": "string"
                         }, 
                         "address": {
                           "properties": {
                             "addressCountry": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.addressCountry"
+                              "type": "string"
                             }, 
                             "addressLocality": {
                               "type": "string", 
@@ -2480,13 +2087,11 @@
                             }, 
                             "postalCode": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.postalCode"
+                              "type": "string"
                             }, 
                             "@type": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.@type"
+                              "type": "string"
                             }
                           }
                         }
@@ -2515,18 +2120,6 @@
                       "type": "string"
                     }, 
                     "availableLanguage": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "startDate": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
                       "index": "not_analyzed", 
                       "type": "string"
                     }
@@ -2620,21 +2213,6 @@
                     "@id": {
                       "index": "not_analyzed", 
                       "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
                     }
                   }
                 }, 
@@ -2657,8 +2235,7 @@
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
@@ -2668,8 +2245,7 @@
                         }, 
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -2681,13 +2257,11 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
+                          "type": "string"
                         }
                       }
                     }
@@ -2713,6 +2287,14 @@
                           "type": "string"
                         }
                       }
+                    }
+                  }
+                }, 
+                "licenseConcept": {
+                  "properties": {
+                    "@id": {
+                      "index": "not_analyzed", 
+                      "type": "string"
                     }
                   }
                 }, 
@@ -2936,8 +2518,7 @@
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
@@ -2947,8 +2528,7 @@
                         }, 
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -2960,13 +2540,11 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
+                          "type": "string"
                         }
                       }
                     }
@@ -3098,9 +2676,6 @@
                 }
               }
             }, 
-            "notation": {
-              "type": "string"
-            }, 
             "organizerFor": {
               "properties": {
                 "inLanguage": {
@@ -3111,21 +2686,6 @@
                     "@id": {
                       "index": "not_analyzed", 
                       "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
                     }, 
                     "location": {
                       "properties": {
@@ -3143,15 +2703,13 @@
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.@type"
+                          "type": "string"
                         }, 
                         "address": {
                           "properties": {
                             "addressCountry": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.addressCountry"
+                              "type": "string"
                             }, 
                             "addressLocality": {
                               "type": "string", 
@@ -3167,13 +2725,11 @@
                             }, 
                             "postalCode": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.postalCode"
+                              "type": "string"
                             }, 
                             "@type": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.@type"
+                              "type": "string"
                             }
                           }
                         }
@@ -3182,16 +2738,8 @@
                   }
                 }, 
                 "endDate": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "description": {
                   "properties": {
@@ -3205,16 +2753,8 @@
                   }
                 }, 
                 "startDate": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "sameAs": {
                   "type": "string"
@@ -3255,8 +2795,7 @@
                       "properties": {
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressLocality": {
                           "type": "string", 
@@ -3268,8 +2807,7 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -3475,16 +3013,8 @@
               "type": "string"
             }, 
             "startTime": {
-              "properties": {
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "@value": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }
-              }
+              "index": "not_analyzed", 
+              "type": "string"
             }, 
             "hashtag": {
               "type": "string"
@@ -3561,8 +3091,7 @@
                       "properties": {
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressLocality": {
                           "type": "string", 
@@ -3574,8 +3103,7 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }
                       }
                     }
@@ -3608,58 +3136,9 @@
             }, 
             "about": {
               "properties": {
-                "name": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "notation": {
-                  "type": "string"
-                }, 
-                "topConceptOf": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
                 "@id": {
                   "index": "not_analyzed", 
                   "type": "string"
-                }, 
-                "narrower": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
                 }, 
                 "location": {
                   "properties": {
@@ -3677,15 +3156,13 @@
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressLocality": {
                           "type": "string", 
@@ -3701,67 +3178,15 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
-                        }
-                      }
-                    }
-                  }
-                }, 
-                "broader": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
                           "type": "string"
                         }
                       }
                     }
                   }
-                }, 
-                "scopeNote": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "inScheme": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
                 }
               }
             }, 
@@ -3771,14 +3196,6 @@
                   "type": "string"
                 }, 
                 "@language": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }
-              }
-            }, 
-            "license": {
-              "properties": {
-                "@id": {
                   "index": "not_analyzed", 
                   "type": "string"
                 }
@@ -3913,16 +3330,8 @@
             "memberOf": {
               "properties": {
                 "startDate": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "sameAs": {
                   "type": "string"
@@ -3936,6 +3345,14 @@
                 }, 
                 "tag": {
                   "type": "string"
+                }, 
+                "licenseConcept": {
+                  "properties": {
+                    "@id": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }
+                  }
                 }, 
                 "alternateName": {
                   "properties": {
@@ -3998,8 +3415,7 @@
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
@@ -4009,8 +3425,7 @@
                         }, 
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -4022,13 +3437,11 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
+                          "type": "string"
                         }
                       }
                     }
@@ -4193,15 +3606,13 @@
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.@type"
+                          "type": "string"
                         }, 
                         "address": {
                           "properties": {
                             "addressCountry": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.addressCountry"
+                              "type": "string"
                             }, 
                             "addressLocality": {
                               "type": "string", 
@@ -4217,13 +3628,11 @@
                             }, 
                             "postalCode": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.postalCode"
+                              "type": "string"
                             }, 
                             "@type": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.@type"
+                              "type": "string"
                             }
                           }
                         }
@@ -4358,8 +3767,7 @@
                   "properties": {
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
@@ -4369,8 +3777,7 @@
                         }, 
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -4382,29 +3789,19 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
+                          "type": "string"
                         }
                       }
                     }
                   }
                 }, 
                 "startTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "alternateName": {
                   "properties": {
@@ -4418,16 +3815,8 @@
                   }
                 }, 
                 "endTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "@id": {
                   "index": "not_analyzed", 
@@ -4455,60 +3844,7 @@
             }, 
             "audience": {
               "properties": {
-                "name": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "notation": {
-                  "type": "string"
-                }, 
                 "@id": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "topConceptOf": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "alternateName": {
-                  "properties": {
-                    "@value": {
-                      "type": "string"
-                    }, 
-                    "@language": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "inScheme": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
-                }, 
-                "@type": {
                   "index": "not_analyzed", 
                   "type": "string"
                 }
@@ -4520,16 +3856,8 @@
             "mentions": {
               "properties": {
                 "startDate": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "sameAs": {
                   "type": "string"
@@ -4587,6 +3915,14 @@
                 "tag": {
                   "type": "string"
                 }, 
+                "licenseConcept": {
+                  "properties": {
+                    "@id": {
+                      "index": "not_analyzed", 
+                      "type": "string"
+                    }
+                  }
+                }, 
                 "alternateName": {
                   "properties": {
                     "@value": {
@@ -4595,29 +3931,6 @@
                     "@language": {
                       "index": "not_analyzed", 
                       "type": "string"
-                    }
-                  }
-                }, 
-                "participant": {
-                  "properties": {
-                    "@id": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "name": {
-                      "properties": {
-                        "@value": {
-                          "type": "string"
-                        }, 
-                        "@language": {
-                          "index": "not_analyzed", 
-                          "type": "string"
-                        }
-                      }
                     }
                   }
                 }, 
@@ -4671,8 +3984,7 @@
                     }, 
                     "@type": {
                       "index": "not_analyzed", 
-                      "type": "string", 
-                      "copy_to": "about.location.@type"
+                      "type": "string"
                     }, 
                     "address": {
                       "properties": {
@@ -4682,8 +3994,7 @@
                         }, 
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -4695,13 +4006,11 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.@type"
+                          "type": "string"
                         }
                       }
                     }
@@ -4798,16 +4107,8 @@
                   "type": "string"
                 }, 
                 "startTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "contactPoint": {
                   "properties": {
@@ -4858,15 +4159,13 @@
                         }, 
                         "@type": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.@type"
+                          "type": "string"
                         }, 
                         "address": {
                           "properties": {
                             "addressCountry": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.addressCountry"
+                              "type": "string"
                             }, 
                             "addressLocality": {
                               "type": "string", 
@@ -4882,13 +4181,11 @@
                             }, 
                             "postalCode": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.postalCode"
+                              "type": "string"
                             }, 
                             "@type": {
                               "index": "not_analyzed", 
-                              "type": "string", 
-                              "copy_to": "about.location.address.@type"
+                              "type": "string"
                             }
                           }
                         }
@@ -4989,16 +4286,8 @@
                   }
                 }, 
                 "endTime": {
-                  "properties": {
-                    "@type": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }, 
-                    "@value": {
-                      "index": "not_analyzed", 
-                      "type": "string"
-                    }
-                  }
+                  "index": "not_analyzed", 
+                  "type": "string"
                 }, 
                 "@type": {
                   "index": "not_analyzed", 
@@ -5082,8 +4371,7 @@
                       "properties": {
                         "addressCountry": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.addressCountry"
+                          "type": "string"
                         }, 
                         "addressLocality": {
                           "type": "string", 
@@ -5095,8 +4383,7 @@
                         }, 
                         "postalCode": {
                           "index": "not_analyzed", 
-                          "type": "string", 
-                          "copy_to": "about.location.address.postalCode"
+                          "type": "string"
                         }, 
                         "addressRegion": {
                           "type": "string", 
@@ -5155,28 +4442,12 @@
               }
             }, 
             "endTime": {
-              "properties": {
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "@value": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }
-              }
+              "index": "not_analyzed", 
+              "type": "string"
             }, 
             "startDate": {
-              "properties": {
-                "@type": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }, 
-                "@value": {
-                  "index": "not_analyzed", 
-                  "type": "string"
-                }
-              }
+              "index": "not_analyzed", 
+              "type": "string"
             }, 
             "@type": {
               "index": "not_analyzed", 
@@ -5184,24 +4455,16 @@
             }
           }
         }, 
-        "author": {
+        "@id": {
+          "index": "not_analyzed", 
           "type": "string"
-        }, 
-        "dateCreated": {
-          "type": "date", 
-          "format": "dateOptionalTime"
         }, 
         "@type": {
           "index": "not_analyzed", 
           "type": "string"
         }, 
-        "@id": {
-          "index": "not_analyzed", 
+        "author": {
           "type": "string"
-        }, 
-        "dateModified": {
-          "type": "date", 
-          "format": "dateOptionalTime"
         }
       }
     }

@@ -160,31 +160,32 @@ public class BaseRepository extends Repository
 
   /**
    * As opposed to {@link #addResources}, this method imports resources using individual commits with metadata
-   * extracted from a document surrounding the actual resource.
-   * @param aResources  The resources to import
+   * extracted from a document surrounding the actual resource (a "record").
+   * @param aRecords
+   *          The resources to import
    * @throws IOException
    */
-  public void importResources(@Nonnull List<Resource> aResources) throws IOException {
-
-    Map<String, String> aMetadata = new HashMap<>();
-
-    if (aMetadata.get(TripleCommit.Header.AUTHOR_HEADER) == null) {
-      aMetadata.put(TripleCommit.Header.AUTHOR_HEADER, "Anonymous");
-    }
-    if (aMetadata.get(TripleCommit.Header.DATE_HEADER) == null) {
-      aMetadata.put(TripleCommit.Header.DATE_HEADER, ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-    }
-
-    TripleCommit.Header header = new TripleCommit.Header(aMetadata.get(TripleCommit.Header.AUTHOR_HEADER),
-      ZonedDateTime.parse(aMetadata.get(TripleCommit.Header.DATE_HEADER)));
+  public void addRecords(@Nonnull List<Resource> aRecords) throws IOException {
 
     List<Commit> commits = new ArrayList<>();
-    for (Resource resource : aResources) {
+    for (Resource record : aRecords) {
+      String author = record.getAsString(Record.AUTHOR);
+      if (StringUtils.isEmpty(author)) {
+        author = "Anonymous";
+      }
+      ZonedDateTime date = ZonedDateTime.parse(record.getAsString(Record.DATE_CREATED));
+      if (date == null) {
+        date = ZonedDateTime.now();
+      }
+      Resource resource = record.getAsResource(Record.RESOURCE_KEY);
+      resource.put("@context", "http://schema.org/");
       Commit.Diff diff = mTriplestoreRepository.getDiff(resource);
-      Commit commit = new TripleCommit(header, diff);
+      Commit commit = new TripleCommit(new TripleCommit.Header(author, date), diff);
       commits.add(commit);
     }
+
     mTriplestoreRepository.commit(commits);
+
     for (Commit commit : commits) {
       mIndexQueue.tell(commit, mIndexQueue);
     }
