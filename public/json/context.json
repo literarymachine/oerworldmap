@@ -1,6 +1,7 @@
 {
   "@context": {
     "@vocab": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "knows": {
       "@container": "@set"
     },
@@ -117,10 +118,55 @@
     "mainEntityOf": {
       "@container": "@set"
     },
+    "funder": {
+      "@container": "@set"
+    },
+    "funderOf": {
+      "@container": "@set"
+    },
+    "notation": {
+      "@container": "@set"
+    },
+    "scopeNote": {
+      "@container": "@set"
+    },
+    "availableLanguage": {
+      "@container": "@set"
+    },
+    "recordedIn": {
+      "@container": "@set"
+    },
+    "inLanguage": {
+      "@container": "@set"
+    },
+    "articleBody": {
+      "@container": "@set"
+    },
+    "licenseConcept": {
+      "@container": "@set"
+    },
+    "endDate": {
+      "@type" : "Date"
+    },
+    "startDate": {
+      "@type" : "Date"
+    },
+    "startTime": {
+      "@type" : "DateTime"
+    },
+    "endTime": {
+      "@type" : "DateTime"
+    },
+    "dateCreated": {
+      "@type" : "Date"
+    },
     "image": {
       "@type": "@id"
     },
     "url": {
+      "@type": "@id"
+    },
+    "serviceUrl": {
       "@type": "@id"
     }
   }

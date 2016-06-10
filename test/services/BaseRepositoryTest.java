@@ -183,7 +183,7 @@ public class BaseRepositoryTest extends ElasticsearchTestGrid implements JsonTes
               "about.alternateName.@value^6" });
       List<Resource> actualList = mBaseRepo.query("oerworldmap", 0, 10, null, null, queryContext).getItems();
       List<String> actualNameList = getNameList(actualList);
-      
+
       // must provide 6 hits when search is reduced on "about.name.@value" and
       // "about.alternateName.@value"
       Assert.assertTrue("Result size list is: " + actualNameList.size(), actualNameList.size() == 6);

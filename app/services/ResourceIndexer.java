@@ -117,6 +117,7 @@ public class ResourceIndexer {
       try {
         Resource resource = ResourceFramer.resourceFromModel(mDb, id);
         if (resource != null) {
+          Logger.debug(resource.toString());
           resourcesToIndex.add(resource);
         }
       } catch (IOException e) {

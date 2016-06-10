@@ -1,0 +1,40 @@
+{
+  "@type" : "Person",
+  "name" : [ {
+    "@value" : "Carol",
+    "@language" : "en"
+  } ],
+  "@id" : "info:carol",
+  "@context" : "http://schema.org/",
+  "knows" : [ {
+    "@type" : "Person",
+    "name" : [ {
+      "@value" : "Alice",
+      "@language" : "en"
+    } ],
+    "@id" : "info:alice",
+    "knows" : [ {
+      "@type" : "Person",
+      "name" : [ {
+        "@value" : "Carol",
+        "@language" : "en"
+      } ],
+      "@id" : "info:carol"
+    } ]
+  }, {
+    "@type" : "Person",
+    "name" : [ {
+      "@value" : "Bob",
+      "@language" : "de"
+    } ],
+    "@id" : "info:bob",
+    "knows" : [ {
+      "@type" : "Person",
+      "name" : [ {
+        "@value" : "Carol",
+        "@language" : "en"
+      } ],
+      "@id" : "info:carol"
+    } ]
+  } ]
+}
