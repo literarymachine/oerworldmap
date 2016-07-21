@@ -300,6 +300,20 @@ public class BaseRepository extends Repository
 
   }
 
+  public String sparql(String q) {
+
+    return mTriplestoreRepository.sparql(q);
+
+  }
+
+  public String update(String insert, String delete, String where) {
+
+    Commit.Diff diff = mTriplestoreRepository.update(insert, delete, where);
+    index(diff);
+    return diff.toString();
+
+  }
+
   private void index(Commit.Diff aDiff) {
 
     if (mAsyncIndexing) {
