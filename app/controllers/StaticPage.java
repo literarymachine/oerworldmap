@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import models.Page;
 import org.apache.commons.io.IOUtils;
 import org.pegdown.PegDownProcessor;
 
+import play.Logger;
 import play.Play;
 import play.mvc.Result;
 
@@ -29,34 +31,24 @@ public class StaticPage extends OERWorldMap {
         .concat(country).concat(extension);
     String titleLanguagePath = path.concat(title).concat("_").concat(language).concat(extension);
     String titlePath = path.concat(title).concat(extension);
-    String body;
 
-    InputStream inputStream;
+    Map<String, String> page;
     try {
-      inputStream = classLoader.getResourceAsStream(titleLocalePath);
-      body = IOUtils.toString(inputStream);
-      inputStream.close();
+      page = Page.parse(classLoader.getResourceAsStream(titleLocalePath));
     } catch (NullPointerException | IOException noLocale) {
       try {
-        inputStream = classLoader.getResourceAsStream(titleLanguagePath);
-        body = IOUtils.toString(inputStream);
-        inputStream.close();
+        page = Page.parse(classLoader.getResourceAsStream(titleLanguagePath));
       } catch (NullPointerException | IOException noLanguage) {
         try {
-          inputStream = classLoader.getResourceAsStream(titlePath);
-          body = IOUtils.toString(inputStream);
-          inputStream.close();
+          page = Page.parse(classLoader.getResourceAsStream(titlePath));
         } catch (NullPointerException | IOException noPage) {
           return notFound("Page not found");
         }
       }
     }
 
-    PegDownProcessor pegDownProcessor = new PegDownProcessor();
-    Map<String, Object> scope = new HashMap<>();
-    scope.put("title", title);
-    scope.put("body", pegDownProcessor.markdownToHtml(body));
-    return ok(render(title, "StaticPage/index.mustache", scope));
+    return ok(render(page.get("title"), "StaticPage/index.mustache", (Map) page));
+
   }
 
 }

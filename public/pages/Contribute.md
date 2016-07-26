@@ -1,11 +1,16 @@
-# Contribute
+---
+title: Contribute
+author: Felix
+date: 07-26-2016
+---
+
 ## Raise awareness
 ### Spread the news
 People need to know about the OER World Map if it is to provide a comprehensive overview of OER people and activities.  We need to build the network together, so please speak to your friends and colleagues or use social media like Facebook or Twitter to reach out more widely (use [#oerworldmap](https://twitter.com/hashtag/oerworldmap)).
 
 ### Become a Country Champion
-Developing the OER World Map depends upon collaboration. It will be built best by a network of Country Champions who will have or want to create an overview of the OER movement in their own country.  From their local base they will raise awareness with their connections, gather data and assure its quality. 
- 
+Developing the OER World Map depends upon collaboration. It will be built best by a network of Country Champions who will have or want to create an overview of the OER movement in their own country.  From their local base they will raise awareness with their connections, gather data and assure its quality.
+
 Many countries do not have a Country Champion yet. More information on the OER World Map Country Champion Network can be found on our [blog](https://oerworldmap.wordpress.com/2015/09/19/how-to-become-part-of-the-oer-world-map-country-champion-network/). If you or your institution could play this role please write to [in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org).
 
 ###Contribute stories
@@ -14,7 +19,7 @@ We have much to learn from each other. Please consider sharing a story describin
 - Open Educational Practice
 - research and new insights on OER
 - development or use of infrastructure tools.
- 
+
 A short text with lessons learned – what worked and what did not – would contribute to understanding of the different ways that OER are created and used. Follow the suggested guidelines and send your story to [in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org).
 
 ### Translate the web pages
@@ -39,7 +44,7 @@ The API of the OER World Map can be used to generate and export data with no del
 Please report any bugs you identify by opening a new ticket if you are registered on [GitHub](https://github.com/hbz/oerworldmap). Otherwise you can send a message to [in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org).
 
 ### Propose new features
-The OER World Map has been developed using an agile approach. This means that you can contribute to its development by proposing new features. We store new features as [“user stories”](https://github.com/hbz/oerworldmap/labels/story) in our GitHub. If you think something is missing, you can either directly open a new ticket on GitHub or send us a message to [in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org). 
+The OER World Map has been developed using an agile approach. This means that you can contribute to its development by proposing new features. We store new features as [“user stories”](https://github.com/hbz/oerworldmap/labels/story) in our GitHub. If you think something is missing, you can either directly open a new ticket on GitHub or send us a message to [in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org).
 
 ### Contribute code and new applications
 The OER World Map is 100% open – its complete source code is available on GitHub.  Developers can contribute to the code or even develop applications that interact with the OER World Map.
