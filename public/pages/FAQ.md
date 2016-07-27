@@ -1,9 +1,7 @@
 ---
 title: FAQ
-author: Felix
 ---
 
-# FAQ
 ## What is OER?
 'OER' stands for 'Open Educational Resources' and this refers to freely accessible materials that can be used for a [range of activities around teaching and learning](https://www.opencontent.org/definition/). What makes them open is typically an open license instead of a traditional copyright license.
 

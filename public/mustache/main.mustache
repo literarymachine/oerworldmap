@@ -66,9 +66,9 @@
     <nav class="main">
         <ul>
             <li><h1><a href="/" title="Home">OER W<i class="fa fa-globe"></i>RLD MAP</a></h1></li>
-            <li><a href="/contribute" title="Contribute">Contribute</a></li>
-            <li><a href="/FAQ" title="FAQ">FAQ</a></li>
-            <li><a href="/about" title="About">About</a></li>
+            {{#each sections.primary}}
+                <li><a href="/{{[@key]}}" title="{{ . }}">{{ . }}</a></li>
+            {{/each}}
         </ul>
     </nav>
 

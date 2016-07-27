@@ -10,6 +10,7 @@ import java.net.URLDecoder;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,6 +23,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigValue;
 import helpers.JSONForm;
 import models.TripleCommit;
 import org.apache.commons.io.IOUtils;
@@ -46,6 +49,7 @@ import play.mvc.With;
 import play.twirl.api.Html;
 import services.AccountService;
 import services.AggregationProvider;
+import services.PageProvider;
 import services.repository.BaseRepository;
 
 /**
@@ -78,6 +82,16 @@ public abstract class OERWorldMap extends Controller {
     } catch (final Exception ex) {
       throw new RuntimeException("Failed to create Respository", ex);
     }
+  }
+  protected static PageProvider mPageProvider;
+  static {
+    Map<String, List<String>> sections = new HashMap<>();
+    Config sectionsConfig = Global.getConfig().underlying().getConfig("pages.sections");
+    for (Map.Entry<String, ConfigValue> entry: sectionsConfig.entrySet()) {
+      sections.put(entry.getKey(), Arrays.asList(entry.getValue().unwrapped().toString().split(" +")));
+    }
+    mPageProvider = new PageProvider(Global.getConfig().getString("pages.dir"),
+      Global.getConfig().getString("pages.extension"), sections);
   }
 
   protected static ResourceBundle messages = ResourceBundle.getBundle("messages", OERWorldMap.mLocale);
@@ -132,7 +146,7 @@ public abstract class OERWorldMap extends Controller {
     mustacheData.put("template", templatePath);
     mustacheData.put("config", mConf.asMap());
     mustacheData.put("templates", getClientTemplates());
-
+    mustacheData.put("sections", mPageProvider.getSections(mLocale));
 
     try {
       if (scope != null) {

@@ -1,10 +1,6 @@
 ---
 title: Imprint
-author: Felix
-date: 07-26-2016
 ---
-
-# Imprint
 
 ## Anbieterkennzeichnung
 
