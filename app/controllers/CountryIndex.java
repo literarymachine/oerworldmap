@@ -29,9 +29,7 @@ public class CountryIndex extends OERWorldMap {
       return notFound("Not found");
     }
 
-    QueryContext queryContext = (QueryContext) ctx().args.get("queryContext");
-
-    queryContext.setFetchSource(new String[]{
+    mQueryContext.setFetchSource(new String[]{
       "about.@id", "about.@type", "about.name", "about.alternateName", "about.location", "about.image",
       "about.provider.@id", "about.provider.@type", "about.provider.name", "about.provider.location",
       "about.participant.@id", "about.participant.@type", "about.participant.name", "about.participant.location",
@@ -49,19 +47,19 @@ public class CountryIndex extends OERWorldMap {
 
     filters.clear();
     filters.put(Record.RESOURCE_KEY + ".location.address.addressCountry", Arrays.asList(id.toUpperCase()));
-    ResourceList resources = mBaseRepository.query("*", 0, 9999, null, filters, queryContext);
+    ResourceList resources = mBaseRepository.query("*", 0, 9999, null, filters, mQueryContext);
 
     Map<String, Object> scope = new HashMap<>();
 
     scope.put("alpha-2", id.toUpperCase());
-    scope.put("name", Countries.getNameFor(id, OERWorldMap.mLocale));
+    scope.put("name", Countries.getNameFor(id, mLocale));
     scope.put("champions", champions.getItems());
     scope.put("resources", resources.toResource());
     scope.put("countryAggregation", countryAggregation);
     scope.put("embed", embed);
 
-    if (request().accepts("text/html")) {
-      return ok(render(Countries.getNameFor(id, OERWorldMap.mLocale), "CountryIndex/read.mustache", scope));
+    if (ctx().request().accepts("text/html")) {
+      return ok(render(Countries.getNameFor(id, mLocale), "CountryIndex/read.mustache", scope));
     } else {
       return ok(resources.toResource().toString()).as("application/json");
     }

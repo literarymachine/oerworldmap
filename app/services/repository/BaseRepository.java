@@ -77,7 +77,7 @@ public class BaseRepository extends Repository
 
     Integer framerPort = aConfiguration.getInt("node.framer.port");
     ResourceFramer.setPort(framerPort);
-    ResourceFramer.start();
+    //ResourceFramer.start();
 
     Model mDb = dataset.getDefaultModel();
     mResourceIndexer = new ResourceIndexer(mDb, mElasticsearchRepo, graphHistory);

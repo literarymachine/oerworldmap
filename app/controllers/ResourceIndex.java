@@ -53,22 +53,20 @@ public class ResourceIndex extends OERWorldMap {
     // Extract filters directly from query params
     Map<String, List<String>> filters = new HashMap<>();
     Pattern filterPattern = Pattern.compile("^filter\\.(.*)$");
-    for (Map.Entry<String, String[]> entry : request().queryString().entrySet()) {
+    for (Map.Entry<String, String[]> entry : ctx().request().queryString().entrySet()) {
       Matcher filterMatcher = filterPattern.matcher(entry.getKey());
       if (filterMatcher.find()) {
         filters.put(filterMatcher.group(1), new ArrayList<>(Arrays.asList(entry.getValue())));
       }
     }
 
-    QueryContext queryContext = (QueryContext) ctx().args.get("queryContext");
-
     // Check for bounding box
-    String[] boundingBoxParam = request().queryString().get("boundingBox");
+    String[] boundingBoxParam = ctx().request().queryString().get("boundingBox");
     if (boundingBoxParam != null && boundingBoxParam.length > 0) {
       String boundingBox = boundingBoxParam[0];
       if (boundingBox != null) {
         try {
-          queryContext.setBoundingBox(boundingBox);
+          mQueryContext.setBoundingBox(boundingBox);
         } catch (NumberFormatException e) {
           Logger.error("Invalid bounding box: ".concat(boundingBox), e);
         }
@@ -80,7 +78,7 @@ public class ResourceIndex extends OERWorldMap {
       sort = "dateCreated:DESC";
     }
 
-    queryContext.setFetchSource(new String[]{
+    mQueryContext.setFetchSource(new String[]{
       "about.@id", "about.@type", "about.name", "about.alternateName", "about.location", "about.image",
       "about.provider.@id", "about.provider.@type", "about.provider.name", "about.provider.location",
       "about.participant.@id", "about.participant.@type", "about.participant.name", "about.participant.location",
@@ -89,10 +87,10 @@ public class ResourceIndex extends OERWorldMap {
       "about.mainEntity.@id", "about.mainEntity.@type", "about.mainEntity.name", "about.mainEntity.location"
     });
 
-    queryContext.setElasticsearchFieldBoosts(new SearchConfig().getBoostsForElasticsearch());
+    mQueryContext.setElasticsearchFieldBoosts(new SearchConfig().getBoostsForElasticsearch());
 
     Map<String, Object> scope = new HashMap<>();
-    ResourceList resourceList = mBaseRepository.query(q, from, size, sort, filters, queryContext);
+    ResourceList resourceList = mBaseRepository.query(q, from, size, sort, filters, mQueryContext);
     scope.put("list", list);
     scope.put("resources", resourceList.toResource());
 
@@ -117,7 +115,7 @@ public class ResourceIndex extends OERWorldMap {
   public Result importRecords() throws IOException {
 
     // Import records
-    JsonNode json = request().body().asJson();
+    JsonNode json = ctx().request().body().asJson();
     List<Resource> records = new ArrayList<>();
     if (json.isArray()) {
       for (JsonNode node : json) {
@@ -130,7 +128,7 @@ public class ResourceIndex extends OERWorldMap {
     }
     mBaseRepository.importRecords(records, getMetadata());
 
-    // Add user accounts
+    // Add mUser accounts
     for (Resource record : records) {
       Resource resource = record.getAsResource(Record.RESOURCE_KEY);
       if ("Person".equals(resource.getType())) {
@@ -155,7 +153,7 @@ public class ResourceIndex extends OERWorldMap {
   }
 
   public Result importResources() throws IOException {
-    JsonNode json = request().body().asJson();
+    JsonNode json = ctx().request().body().asJson();
     List<Resource> resources = new ArrayList<>();
     if (json.isArray()) {
       for (JsonNode node : json) {
@@ -214,7 +212,7 @@ public class ResourceIndex extends OERWorldMap {
       List<Map<String, Object>> messages = new ArrayList<>();
       HashMap<String, Object> message = new HashMap<>();
       message.put("level", "warning");
-      message.put("message", OERWorldMap.messages.getString("schema_error")
+      message.put("message", mMessages.getString("schema_error")
         + "<pre>" + processingReport.toString() + "</pre>"
         + "<pre>" + staged + "</pre>");
       messages.add(message);
@@ -278,7 +276,7 @@ public class ResourceIndex extends OERWorldMap {
       List<Map<String, Object>> messages = new ArrayList<>();
       HashMap<String, Object> message = new HashMap<>();
       message.put("level", "warning");
-      message.put("message", OERWorldMap.messages.getString("schema_error")
+      message.put("message", mMessages.getString("schema_error")
         + "<pre>" + listProcessingReport.toString() + "</pre>"
         + "<pre>" + resources + "</pre>");
       messages.add(message);
@@ -336,15 +334,14 @@ public class ResourceIndex extends OERWorldMap {
       title = id;
     }
 
-    Resource user = (Resource) ctx().args.get("user");
-    boolean mayEdit = (user != null) && ((resource.getType().equals("Person") && user.getId().equals(id))
+    boolean mayEdit = (mUser != null) && ((resource.getType().equals("Person") && mUser.getId().equals(id))
         || (!resource.getType().equals("Person")
             && mAccountService.getGroups(request().username()).contains("editor"))
         || mAccountService.getGroups(request().username()).contains("admin"));
-    boolean mayLog = (user != null) && (mAccountService.getGroups(request().username()).contains("admin")
+    boolean mayLog = (mUser != null) && (mAccountService.getGroups(request().username()).contains("admin")
         || mAccountService.getGroups(request().username()).contains("editor"));
-    boolean mayAdminister = (user != null) && mAccountService.getGroups(request().username()).contains("admin");
-    boolean mayComment = (user != null) && (!resource.getType().equals("Person"));
+    boolean mayAdminister = (mUser != null) && mAccountService.getGroups(request().username()).contains("admin");
+    boolean mayComment = (mUser != null) && (!resource.getType().equals("Person"));
 
     Map<String, Object> permissions = new HashMap<>();
     permissions.put("edit", mayEdit);
@@ -403,7 +400,7 @@ public class ResourceIndex extends OERWorldMap {
     jsonNode.put(JsonLdConstants.CONTEXT, "http://schema.org/");
     Resource comment = Resource.fromJson(jsonNode);
 
-    comment.put("author", ctx().args.get("user"));
+    comment.put("author", mUser);
     comment.put("dateCreated", ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
 
     TripleCommit.Diff diff = (TripleCommit.Diff) mBaseRepository.getDiff(comment);
@@ -425,8 +422,7 @@ public class ResourceIndex extends OERWorldMap {
 
   public Result feed() {
 
-    QueryContext queryContext = (QueryContext) ctx().args.get("queryContext");
-    ResourceList resourceList = mBaseRepository.query("", 0, 20, "dateCreated:DESC", null, queryContext);
+    ResourceList resourceList = mBaseRepository.query("", 0, 20, "dateCreated:DESC", null, mQueryContext);
     Map<String, Object> scope = new HashMap<>();
     scope.put("resources", resourceList.toResource());
 
