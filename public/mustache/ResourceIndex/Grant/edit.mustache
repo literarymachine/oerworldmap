@@ -3,15 +3,15 @@
     {{input "isFundedBy[@type]" "Grant" readonly="readonly"}}
 </div>
 
-{{> FormElements/localizedInput.mustache property=isFundedBy.0.name property_path="isFundedBy[name]" title=(i18n "Grant.name") tooltip=(i18n "Grant.name" bundle="descriptions")}}
+{{> FormElements/localizedInput.mustache property=isFundedBy.0.name property_path="isFundedBy[name]" title=(i18n "Grant.name") tooltip=(i18n "Grant.name" bundle="descriptions") hidden=true}}
 
-{{> FormElements/localizedInput.mustache property=isFundedBy.0.alternateName property_path="isFundedBy[alternateName]" title=(i18n "Grant.alternateName") tooltip=(i18n "Grant.alternateName" bundle="descriptions")}}
+{{> FormElements/localizedInput.mustache property=isFundedBy.0.alternateName property_path="isFundedBy[alternateName]" title=(i18n "Grant.alternateName") tooltip=(i18n "Grant.alternateName" bundle="descriptions") hidden=true}}
 
 {{> FormElements/input.mustache property=isFundedBy.0.duration property_path="isFundedBy[duration]" title=(i18n "Grant.duration") tooltip=(i18n "Grant.duration" bundle="descriptions") hidden=false multiple=false input_type="text"}}
 
 {{> FormElements/input.mustache property=isFundedBy.0.hasMonetaryValue property_path="isFundedBy[hasMonetaryValue]" title=(i18n "Grant.hasMonetaryValue") tooltip=(i18n "Grant.hasMonetaryValue" bundle="descriptions") hidden=false multiple=false input_type="text"}}
 
-{{> FormElements/localizedTextarea.mustache property=isFundedBy.0.description property_path="isFundedBy[description]" title=(i18n "Grant.description") tooltip=(i18n "Grant.description" bundle="descriptions")}}
+{{> FormElements/localizedTextarea.mustache property=isFundedBy.0.description property_path="isFundedBy[description]" title=(i18n "Grant.description") tooltip=(i18n "Grant.description" bundle="descriptions") hidden=true}}
 
 {{> FormElements/input.mustache property=isFundedBy.0.sameAs property_path="isFundedBy[sameAs]" title=(i18n "Grant.sameAs") tooltip=(i18n "Grant.sameAs" bundle="descriptions") hidden=true multiple=true input_type="url"}}
 
@@ -23,4 +23,4 @@
 
 {{> FormElements/id.mustache property=isFundedBy.0.mentionedIn property_path="isFundedBy[mentionedIn]" title=(i18n "Grant.mentionedIn") tooltip=(i18n "Grant.mentionedIn" bundle="descriptions") hidden=true multiple=true lookup_url="/resource/?filter.about.@type=Article"}}
 
-{{> FormElements/input.mustache property=isFundedBy.0.keywords property_path="isFundedBy[keywords]" title=(i18n "Grant.keywords") tooltip=(i18n "Grant.keywords" bundle="descriptions") hidden=false multiple=true input_type="text" list="keywords"}}
+{{> FormElements/input.mustache property=isFundedBy.0.keywords property_path="isFundedBy[keywords]" title=(i18n "Grant.keywords") tooltip=(i18n "Grant.keywords" bundle="descriptions") hidden=false multiple=true input_type="text" list="keywords" hidden=true}}
