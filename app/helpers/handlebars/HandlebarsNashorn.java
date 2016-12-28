@@ -45,7 +45,7 @@ public class HandlebarsNashorn implements Handlebars {
 
     private final Logger logger = LoggerFactory.getLogger(HandlebarsNashorn.class);
 
-    HandlebarsNashorn(Reader handlebarsLib) throws HandlebarsException {
+    public HandlebarsNashorn(Reader handlebarsLib) throws HandlebarsException {
         ScriptEngineManager engineManager = new ScriptEngineManager();
         this.engine = engineManager.getEngineByName("nashorn");
         try {
@@ -158,6 +158,25 @@ public class HandlebarsNashorn implements Handlebars {
         } catch (NoSuchMethodException | ScriptException e) {
             throw new HandlebarsException(e);
         }
+    }
+
+    @Override
+    public void registerHelpers(Reader helpersLib) throws HandlebarsException {
+      try {
+        engine.eval(helpersLib);
+      } catch (ScriptException e) {
+        logger.debug("Error in script:{}", e);
+        throw new HandlebarsException(e);
+      }
+    }
+
+    @Override
+    public void registerPartial(String name, String partial) throws HandlebarsException {
+      try {
+        ((Invocable) engine).invokeMethod(handlebars, "registerPartial", name, partial);
+      } catch (NoSuchMethodException | ScriptException e) {
+        throw new HandlebarsException(e);
+      }
     }
 
 }

@@ -16,6 +16,7 @@
 package helpers.handlebars;
 
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -41,4 +42,9 @@ public interface Handlebars {
     public abstract String render(InputStream template, Object context) throws HandlebarsException;
 
     public abstract <T, U> void registerHelper(String helperName, BiFunction<ScriptObjectMirror, ScriptObjectMirror, String> biFunction) throws HandlebarsException;
+
+    public abstract void registerHelpers(Reader helpersLib) throws HandlebarsException;
+
+    public abstract void registerPartial(String name, String partial) throws HandlebarsException;
+
 }
