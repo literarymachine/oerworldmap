@@ -78,7 +78,8 @@ public class HandlebarsNashorn implements Handlebars {
         try {
             Object context = render.invokeMethod(JSON, "parse", contextJson);
             ScriptObjectMirror obj = (ScriptObjectMirror) render.invokeMethod(handlebars, "compile", templateString);
-            return (String) obj.call(null, context);
+            Object objj = obj.call(null, context);
+            return (String) objj;
         } catch (NoSuchMethodException | ScriptException e) {
             throw new HandlebarsException(e);
         }

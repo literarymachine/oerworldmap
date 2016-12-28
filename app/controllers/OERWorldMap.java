@@ -273,7 +273,7 @@ public abstract class OERWorldMap extends Controller {
     helpers.handlebars.Handlebars jsHandlebars;
     try {
       jsHandlebars = new HandlebarsNashorn(
-        new InputStreamReader(mEnv.resourceAsStream("public/vendor/handlebars.min.js"))
+        new InputStreamReader(mEnv.resourceAsStream("public/vendor/handlebars-latest.js"))
       );
       jsHandlebars.registerHelpers(
         new InputStreamReader(mEnv.resourceAsStream("public/javascripts/nashorn-polyfill.js"))
@@ -307,7 +307,7 @@ public abstract class OERWorldMap extends Controller {
       );
       long endTime = System.nanoTime();
       long duration = (endTime - startTime)  / 1000000;
-      System.out.println(duration);
+      //System.out.println(duration);
       return html;
     } catch (IOException | HandlebarsException ex) {
       throw new RuntimeException(ex);
