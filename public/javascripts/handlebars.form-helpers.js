@@ -387,7 +387,3 @@ for (helper in HandlebarsFormHelpers.helpers) {
 Handlebars.registerHelper('size', function(context) {
   return context ? "" + context.length : "0";
 });
-
-Handlebars.registerHelper('json', function (obj, options) {
-  return new Handlebars.SafeString(JSON.stringify(obj, null, 2));
-});
