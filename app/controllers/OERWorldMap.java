@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.Base64;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -25,21 +28,17 @@ import java.util.jar.JarFile;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jknack.handlebars.MarkdownHelper;
 import helpers.JSONForm;
+import helpers.handlebars.HandlebarsException;
+import helpers.handlebars.HandlebarsNashorn;
 import models.TripleCommit;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import com.github.jknack.handlebars.Handlebars;
-import com.github.jknack.handlebars.Helper;
-import com.github.jknack.handlebars.Options;
-import com.github.jknack.handlebars.Template;
-import com.github.jknack.handlebars.helper.StringHelpers;
 import com.github.jknack.handlebars.io.TemplateLoader;
 
-import helpers.HandlebarsHelpers;
 import helpers.ResourceTemplateLoader;
-import helpers.UniversalFunctions;
 import models.Resource;
 import org.apache.commons.lang3.StringUtils;
 import play.Configuration;
@@ -271,43 +270,47 @@ public abstract class OERWorldMap extends Controller {
     Handlebars handlebars = new Handlebars(loader);
     handlebars.infiniteLoops(true);
 
-    handlebars.registerHelpers(StringHelpers.class);
+    helpers.handlebars.Handlebars jsHandlebars;
+    try {
+      jsHandlebars = new HandlebarsNashorn(
+        new InputStreamReader(mEnv.resourceAsStream("public/vendor/handlebars.min.js"))
+      );
+      jsHandlebars.registerHelpers(
+        new InputStreamReader(mEnv.resourceAsStream("public/javascripts/nashorn-polyfill.js"))
+      );
+      jsHandlebars.registerHelpers(
+        new InputStreamReader(mEnv.resourceAsStream("public/vendor/url-template.js"))
+      );
+      jsHandlebars.registerHelpers(
+        new InputStreamReader(mEnv.resourceAsStream("public/javascripts/helpers.js"))
+      );
+      jsHandlebars.registerHelpers(
+        new InputStreamReader(mEnv.resourceAsStream("public/javascripts/helpers/server.js"))
+      );
+      jsHandlebars.registerHelpers(
+        new InputStreamReader(mEnv.resourceAsStream("public/javascripts/helpers/shared.js"))
+      );
+      jsHandlebars.registerHelpers(
+        new InputStreamReader(mEnv.resourceAsStream("public/javascripts/handlebars.form-helpers.js"))
+      );
 
-    handlebars.registerHelper("obfuscate", new Helper<String>() {
-      public CharSequence apply(String string, Options options) {
-        return UniversalFunctions.getHtmlEntities(string);
+      Iterator it = FileUtils.iterateFiles(mEnv.getFile("public/mustache"), null, true);
+      while(it.hasNext()){
+        File file = (File) it.next();
+        String partialName = file.getPath().substring((mEnv.rootPath() + "/public/mustache/").length());
+        jsHandlebars.registerPartial(partialName, FileUtils.readFileToString(file, StandardCharsets.UTF_8));
       }
-    });
 
-    try {
-      handlebars.registerHelpers(new File("public/javascripts/helpers.js"));
-    } catch (Exception e) {
-      Logger.error(e.toString());
-    }
-
-    HandlebarsHelpers.setController(this);
-    handlebars.registerHelpers(new HandlebarsHelpers());
-
-    try {
-      handlebars.registerHelpers(new File("public/javascripts/helpers/shared.js"));
-    } catch (Exception e) {
-      Logger.error(e.toString());
-    }
-
-    try {
-      handlebars.registerHelpers(new File("public/javascripts/handlebars.form-helpers.js"));
-    } catch (Exception e) {
-      Logger.error(e.toString());
-    }
-
-    handlebars.registerHelper("md", new MarkdownHelper());
-
-    try {
-      Template template = handlebars.compile("main.mustache");
-      return Html.apply(template.apply(mustacheData));
-    } catch (IOException e) {
-      Logger.error(e.toString());
-      return null;
+      long startTime = System.nanoTime();
+      Html html = Html.apply(
+        jsHandlebars.render(mEnv.resourceAsStream("public/mustache/main.mustache"), mustacheData)
+      );
+      long endTime = System.nanoTime();
+      long duration = (endTime - startTime)  / 1000000;
+      System.out.println(duration);
+      return html;
+    } catch (IOException | HandlebarsException ex) {
+      throw new RuntimeException(ex);
     }
 
   }
