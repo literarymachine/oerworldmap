@@ -150,17 +150,17 @@
 
         {{#each scope.resources.aggregations}}
 
-            <h2 data-filter-name="{{@key}}">{{i18n (getField [@key])}}</h2>
+            <h2 data-filter-name="{{@key}}">{{i18n (getField @key)}}</h2>
             <ul class="color-scheme-text layout-typo-small">
                 {{#buckets}}
                     <li>
                         <label class="resource-filter">
-                            {{#ifIn [@key] key scope.resources.filters}}
-                                <input type="checkbox" checked class="filter" name="filter.{{../[@key]}}" value="{{key}}">
+                            {{#ifIn key (lookup scope.resources.filters @key)}}
+                                <input type="checkbox" checked class="filter" name="filter.{{@../key}}" value="{{key}}">
                             {{ else }}
-                                <input type="checkbox" class="filter" name="filter.{{../[@key]}}" value="{{key}}">
+                                <input type="checkbox" class="filter" name="filter.{{@../key}}" value="{{key}}">
                             {{/ifIn}}
-                            <span class="label">{{i18n key bundle=(getBundle (getField ../[@key]))}}</span> ({{doc_count}})
+                            <span class="label">{{i18n key bundle=(getBundle (getField @../key))}}</span> ({{doc_count}})
                         </label>
                     </li>
                 {{/buckets}}
@@ -190,9 +190,9 @@
             where
             {{#each scope.resources.filters}}
                 <span class="field">
-                    <strong>{{i18n (getField [@key])}}</strong> is
+                    <strong>{{i18n (getField @key)}}</strong> is
                     {{#each .}}
-                        <em>{{i18n . bundle=(getBundle (getField ../[@key]))}}</em> <span class="comma">or</span>
+                        <em>{{i18n . bundle=(getBundle (getField @../key))}}</em> <span class="comma">or</span>
                     {{/each}}
                 </span>
                 <span class="comma">and</span>
@@ -232,10 +232,10 @@
         <ul id="list" class="resource-list truncated" data-app="link-to-fragment" data-behaviour="linkedListEntries populateMap">
 
             <script type="application/ld+json">
-                {{{scope.resources.member}}}
+                {{json scope.resources.member}}
             </script>
             {{#scope.resources.member}}
-                <li about="{{@id}}">
+                <li about="{{[@id]}}">
                   {{>ResourceIndex/link.mustache}}
                 </li>
             {{/scope.resources.member}}

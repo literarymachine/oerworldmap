@@ -41,7 +41,7 @@
             <article class="resource" data-behaviour="populateMapHightlights">
 
                 <script type="application/ld+json">
-                    {{{.}}}
+                    {{ json . }}
                 </script>
 
                 <div class="resource-header">
@@ -78,7 +78,7 @@
                             <ul class="comma-seperated-list">
                                 {{#creator}}
                                     <li>
-                                        <a href="/resource/{{@id}}">
+                                        <a href="/resource/{{[@id]}}">
                                             {{#localized name language=@root.language}}
                                                 {{[@value]}}
                                             {{else}}
@@ -93,7 +93,7 @@
 
                     {{#countryChampionFor}}
                         <div class="resource-subline">
-                            {{i18n (stringFormat "%s.countryChampionFor" @type)}}
+                            {{i18n (stringFormat "%s.countryChampionFor" [@type])}}
                             <a href="/country/{{.}}">{{i18n . bundle="countries"}}</a>
                         </div>
                     {{/countryChampionFor}}
@@ -144,7 +144,7 @@
 
                     {{#if email}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.email" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.email" [@type])}}</td>
                             <td>
                                 <a href="mailto:{{{obfuscate email}}}">{{{obfuscate email}}}</a>
                             </td>
@@ -153,7 +153,7 @@
 
                     {{#if alternateName}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.alternateName" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.alternateName" [@type])}}</td>
                             <td>
                                 <ul class="comma-seperated-list">
                                     {{#localized alternateName language=@root.language}}
@@ -166,7 +166,7 @@
 
                     {{#if hashtag}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.hashtag" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.hashtag" [@type])}}</td>
                             <td>
                                 {{ hashtag }}
                             </td>
@@ -175,7 +175,7 @@
 
                     {{#if location.address}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.location" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.location" [@type])}}</td>
                             <td>
                                 {{#location}}
                                     {{>ResourceIndex/Place/read.mustache}}
@@ -186,7 +186,7 @@
 
                     {{#if contactPoint}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.contactPoint" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.contactPoint" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#contactPoint}}
@@ -199,7 +199,7 @@
 
                     {{#if created}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.created" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.created" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#created}}
@@ -212,7 +212,7 @@
 
                     {{#if keywords}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.keywords" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.keywords" [@type])}}</td>
                             <td>
                                 <ul class="comma-seperated-list">
                                     {{#keywords}}<li><a href='/resource/?filter.about.keywords={{.}} '>{{.}}</a></li>{{/keywords}}
@@ -239,7 +239,7 @@
 
                     {{# if audience}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.audience" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.audience" [@type])}}</td>
                             <td>
                                 <ul>
                                     {{#each (reduceSkos @root.skos.isced audience)}}
@@ -252,7 +252,7 @@
 
                     {{#if provider}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.provider" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.provider" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#provider}}
@@ -265,7 +265,7 @@
 
                     {{#if provides}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.provides" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.provides" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#provides}}
@@ -278,7 +278,7 @@
 
                     {{#if about}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.about" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.about" [@type])}}</td>
                             <td>
                                 <ul>
                                     {{#each (reduceSkos @root.skos.esc about)}}
@@ -291,7 +291,7 @@
 
                     {{#if sameAs}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.sameAs" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.sameAs" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#sameAs}}
@@ -304,7 +304,7 @@
 
                     {{#if memberOf}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.memberOf" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.memberOf" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#memberOf}}
@@ -317,7 +317,7 @@
 
                     {{#if member}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.member" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.member" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#member}}
@@ -330,7 +330,7 @@
 
                     {{#if affiliation}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.affiliation" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.affiliation" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#affiliation}}
@@ -343,7 +343,7 @@
 
                     {{#if affiliate}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.affiliate" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.affiliate" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#affiliate}}
@@ -356,7 +356,7 @@
 
                     {{#if tag}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.tag" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.tag" [@type])}}</td>
                             <td>
                                 <ul class="comma-seperated-list">
                                     {{#tag}}
@@ -369,7 +369,7 @@
 
                     {{#if mainEntity}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.mainEntity" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.mainEntity" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#mainEntity}}
@@ -382,7 +382,7 @@
 
                     {{#if mainEntityOf}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.mainEntityOf" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.mainEntityOf" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#mainEntityOf}}
@@ -395,7 +395,7 @@
 
                     {{#if mentions}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.mentions" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.mentions" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#mentions}}
@@ -408,7 +408,7 @@
 
                     {{#if mentionedIn}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.mentionedIn" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.mentionedIn" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#mentionedIn}}
@@ -421,21 +421,21 @@
 
                     {{#if startTime}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.startTime" @type)}} - {{i18n (stringFormat "%s.endTime" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.startTime" [@type])}} - {{i18n (stringFormat "%s.endTime" [@type])}}</td>
                             <td>{{startTime}} &ndash; {{endTime}}</td>
                         </tr>
                     {{/if}}
 
                     {{#if startDate}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.startDate" @type)}} {{#if endDate}}- {{i18n (stringFormat "%s.endDate" @type)}}{{/if}}</td>
+                            <td>{{i18n (stringFormat "%s.startDate" [@type])}} {{#if endDate}}- {{i18n (stringFormat "%s.endDate" [@type])}}{{/if}}</td>
                             <td>{{startDate}} {{#if endDate}}&ndash; {{endDate}} {{/if}}</td>
                         </tr>
                     {{/if}}
 
                     {{#if agent}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.agent" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.agent" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#agent}}
@@ -448,7 +448,7 @@
 
                     {{#if agentIn}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.agentIn" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.agentIn" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#agentIn}}
@@ -461,7 +461,7 @@
 
                     {{#if participant}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.participant" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.participant" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#participant}}
@@ -474,7 +474,7 @@
 
                     {{#if participantIn}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.participantIn" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.participantIn" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#participantIn}}
@@ -487,7 +487,7 @@
 
                     {{#if instrument}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.instrument" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.instrument" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#instrument}}
@@ -500,7 +500,7 @@
 
                     {{#if result}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.result" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.result" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#result}}
@@ -513,7 +513,7 @@
 
                     {{#if funder}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.funder" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.funder" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#funder}}
@@ -526,7 +526,7 @@
 
                     {{#if funderOf}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.funderOf" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.funderOf" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#funderOf}}
@@ -539,7 +539,7 @@
 
                     {{#if organizer}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.organizer" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.organizer" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#organizer}}
@@ -552,7 +552,7 @@
 
                     {{#if organizerFor}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.organizerFor" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.organizerFor" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#organizerFor}}
@@ -565,7 +565,7 @@
 
                     {{#if performer}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.performer" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.performer" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#performer}}
@@ -578,7 +578,7 @@
 
                     {{#if performerIn}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.performerIn" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.performerIn" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#performerIn}}
@@ -591,7 +591,7 @@
 
                     {{#if attendee}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.attendee" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.attendee" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#attendee}}
@@ -604,7 +604,7 @@
 
                     {{#if attends}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.attends" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.attends" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#attends}}
@@ -617,7 +617,7 @@
 
                     {{#if inLanguage}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.inLanguage" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.inLanguage" [@type])}}</td>
                             <td>
                                 <ul class="comma-seperated-list">
                                     {{#inLanguage}}
@@ -630,7 +630,7 @@
 
                     {{#if recordedIn}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.recordedIn" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.recordedIn" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#recordedIn}}
@@ -643,7 +643,7 @@
 
                     {{#if isPartOf}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.isPartOf" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.isPartOf" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#isPartOf}}
@@ -656,7 +656,7 @@
 
                     {{#if hasPart}}
                         <tr>
-                            <td>{{i18n (stringFormat "%s.hasPart" @type)}}</td>
+                            <td>{{i18n (stringFormat "%s.hasPart" [@type])}}</td>
                             <td>
                                 <ul class="resource-list">
                                     {{#hasPart}}
@@ -686,7 +686,7 @@
 
                         <div class="messages resource-form-widget"></div>
 
-                        {{> (stringFormat "ResourceIndex/%s/edit.mustache" @type)}}
+                        {{> (stringFormat "ResourceIndex/%s/edit.mustache" [@type])}}
 
                         <div class="pull-right resource-form-top-padding">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Quit</button>

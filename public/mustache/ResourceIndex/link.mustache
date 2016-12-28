@@ -1,6 +1,6 @@
 <span class="resource">
-    {{getIcon @type}}
-    <a href="/resource/{{@id}}">
+    {{getIcon [@type]}}
+    <a href="/resource/{{[@id]}}">
         {{#localized this.name language=@root.language}}
             {{[@value]}}
         {{else}}

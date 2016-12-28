@@ -7,13 +7,13 @@
             <tr><th>Group</th><th>Users</th></tr>
             {{#each scope.groups}}
                 <tr>
-                    <td>{{[@key]}}</td>
+                    <td>{{@key}}</td>
                     <td>
                         <ul>
                             {{#each .}}
                                 <li>
-                                    <input name="{{../[@key]}}[{{[@key]}}]" type="checkbox"{{#if .}} checked="checked"{{/if}}>
-                                    {{[@key]}}
+                                    <input name="{{@../key}}[{{@key}}]" type="checkbox"{{#if .}} checked="checked"{{/if}}>
+                                    {{@key}}
                                 </li>
                             {{/each}}
                         </ul>

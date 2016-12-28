@@ -6,7 +6,7 @@
         {{#each scope.statistics}}
             {{#ifCond (size buckets) '>' 1}}
                 <span class="separated">
-                    <a data-behaviour="global-statistic-switch" href="#{{[@key]}}">{{i18n [@key]}}</a>
+                    <a data-behaviour="global-statistic-switch" href="#{{@key}}">{{i18n @key}}</a>
                 </span>
             {{/ifCond}}
         {{/each}}
@@ -17,23 +17,23 @@
     {{#each scope.statistics}}
         {{#ifCond (size buckets) '>' 1}}
 
-            <div id="{{[@key]}}" class="statistic container-top" data-behaviour="global-statistic statistic">
+            <div id="{{@key}}" class="statistic container-top" data-behaviour="global-statistic statistic">
 
-                <h2>{{i18n [@key] }}</h2>
+                <h2>{{i18n @key }}</h2>
 
                 <div class="text-center container-bottom">
-                    {{pieChart . scope.colors width=250 height=250 href-template=(stringFormat "/resource/?filter.%s={key}" [@key])}}
+                    {{pieChart . @root.scope.colors width=250 height=250 href-template=(stringFormat "/resource/?filter.%s={key}" @key)}}
                 </div>
 
                 <table class="table small">
                     {{#each buckets}}
                         <tr>
                             <td>
-                                <div class="sample color-{{@index}}" style="background-color: {{get scope.colors @index}};">&nbsp;</div>
+                                <div class="sample color-{{@index}}" style="background-color: {{lookup @root.scope.colors @index}};">&nbsp;</div>
                             </td>
                             <td>
-                                <a href="/resource/?filter.{{[@key]}}={{encodeURIComponent key}}">
-                                    {{i18n key bundle=(getBundle (getField ../[@key]))}} ({{ doc_count }})
+                                <a href="/resource/?filter.{{@../key}}={{encodeURIComponent key}}">
+                                    {{i18n key bundle=(getBundle (getField @../key))}} ({{ doc_count }})
                                 </a>
                             </td>
                         </tr>
