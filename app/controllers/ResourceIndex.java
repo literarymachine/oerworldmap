@@ -1,6 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import com.github.fge.jsonschema.core.report.ListProcessingReport;
@@ -47,11 +48,11 @@ public class ResourceIndex extends OERWorldMap {
     super(aConf, aEnv);
   }
 
-  public Result listDefault(String q, int from, int size, String sort, boolean list) throws IOException {
-    return list(q, from, size, sort, list, null);
+  public Result listDefault(String q, int from, int size, String sort, boolean list, String select) throws IOException {
+    return list(q, from, size, sort, list, null, select);
   }
 
-  public Result list(String q, int from, int size, String sort, boolean list, String extension)
+  public Result list(String q, int from, int size, String sort, boolean list, String extension, String select)
       throws IOException {
 
     // Extract filters directly from query params
@@ -96,19 +97,23 @@ public class ResourceIndex extends OERWorldMap {
 
     queryContext.setElasticsearchFieldBoosts(new SearchConfig().getBoostsForElasticsearch());
 
+    Map<String, Object> scope = new HashMap<>();
+    scope.put("list", list);
+
     ResourceList resourceList = mBaseRepository.query(q, from, size, sort, filters, queryContext);
+    scope.put("resources", resourceList.toResource());
+
+    if (!StringUtils.isEmpty(select)) {
+      scope.put("resource", mBaseRepository.getResource(select));
+    }
 
     Map<String, String> alternates = new HashMap<>();
     String baseUrl = mConf.getString("proxy.host");
-    alternates.put("JSON", baseUrl.concat(routes.ResourceIndex.list(q, from, size, sort, list, "json").url()));
-    alternates.put("CSV", baseUrl.concat(routes.ResourceIndex.list(q, from, size, sort, list, "csv").url()));
+    alternates.put("JSON", baseUrl.concat(routes.ResourceIndex.list(q, from, size, sort, list, "json", select).url()));
+    alternates.put("CSV", baseUrl.concat(routes.ResourceIndex.list(q, from, size, sort, list, "csv", select).url()));
     if (resourceList.containsType("Event")) {
-      alternates.put("iCal", baseUrl.concat(routes.ResourceIndex.list(q, from, size, sort, list, "ics").url()));
+      alternates.put("iCal", baseUrl.concat(routes.ResourceIndex.list(q, from, size, sort, list, "ics", select).url()));
     }
-
-    Map<String, Object> scope = new HashMap<>();
-    scope.put("list", list);
-    scope.put("resources", resourceList.toResource());
     scope.put("alternates", alternates);
 
     String format = null;
@@ -149,7 +154,7 @@ public class ResourceIndex extends OERWorldMap {
       return ok(new CalendarExporter(Locale.ENGLISH).export(resourceList)).as("text/calendar");
     } //
     else if (format.equals("application/json")) {
-      return ok(resourceList.toResource().toString()).as("application/json");
+      return ok(new ObjectMapper().writeValueAsString(scope)).as("application/json");
     }
 
     return notFound("Not found");
