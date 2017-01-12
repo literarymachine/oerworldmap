@@ -44,6 +44,7 @@ public class QueryContext {
     guestAggregations.add(AggregationProvider.getServiceByGradeLevelAggregation(0));
     guestAggregations.add(AggregationProvider.getKeywordsAggregation(0));
     guestAggregations.add(AggregationProvider.getLicenseAggregation(0));
+    guestAggregations.add(AggregationProvider.getLocationAggregation(0));
 
     aggregations.put("guest", guestAggregations);
     aggregations.put("authenticated", guestAggregations);
@@ -141,8 +142,9 @@ public class QueryContext {
     if (coordinates.length == 4) {
       mZoomTopLeft = new GeoPoint(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1]));
       mZoomBottomRight = new GeoPoint(Double.parseDouble(coordinates[2]), Double.parseDouble(coordinates[3]));
+    } else {
+      throw new NumberFormatException();
     }
-    throw new NumberFormatException();
   }
 
 }
