@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class ResourceList {
 
   private int offset;
 
-  private Map<String, List<String>> filters;
+  private Map<String, List<String>> filters = new HashMap<>();
 
   private Resource aggregations;
 
@@ -36,7 +37,9 @@ public class ResourceList {
     offset = aOffset;
     itemsPerPage = aSize;
     sortOrder = aSortOrder;
-    filters = aFilters;
+    for (String key: aFilters.keySet()) {
+      filters.put("filter.".concat(key), aFilters.get(key));
+    }
     aggregations = aAggregations;
   }
 
