@@ -10,7 +10,7 @@ import javax.inject.Inject;
 /**
  * Created by fo on 27.09.16.
  */
-public class Filters  implements HttpFilters {
+public class Filters implements HttpFilters {
 
   private EssentialFilter[] filters;
 
