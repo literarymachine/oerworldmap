@@ -88,7 +88,7 @@ public class ResourceList {
     if (!(null == filters)) {
       for (Map.Entry<String, List<String>> entry : filters.entrySet()) {
         for (String filter : entry.getValue()) {
-          params.add("filter.".concat(entry.getKey()).concat("=").concat(filter));
+          params.add(entry.getKey().concat("=").concat(filter));
         }
       }
     }
@@ -113,7 +113,7 @@ public class ResourceList {
     if (!(null == filters)) {
       for (Map.Entry<String, List<String>> entry : filters.entrySet()) {
         for (String filter : entry.getValue()) {
-          params.add("filter.".concat(entry.getKey()).concat("=").concat(filter));
+          params.add(entry.getKey().concat("=").concat(filter));
         }
       }
     }
@@ -139,7 +139,7 @@ public class ResourceList {
     if (!(null == filters)) {
       for (Map.Entry<String, List<String>> entry : filters.entrySet()) {
         for (String filter : entry.getValue()) {
-          params.add("filter.".concat(entry.getKey()).concat("=").concat(filter));
+          params.add(entry.getKey().concat("=").concat(filter));
         }
       }
     }
@@ -164,7 +164,7 @@ public class ResourceList {
     if (!(null == filters)) {
       for (Map.Entry<String, List<String>> entry : filters.entrySet()) {
         for (String filter : entry.getValue()) {
-          params.add("filter.".concat(entry.getKey()).concat("=").concat(filter));
+          params.add(entry.getKey().concat("=").concat(filter));
         }
       }
     }
@@ -195,7 +195,7 @@ public class ResourceList {
     if (!(null == filters)) {
       for (Map.Entry<String, List<String>> entry : filters.entrySet()) {
         for (String filter : entry.getValue()) {
-          params.add("filter.".concat(entry.getKey()).concat("=").concat(filter));
+          params.add(entry.getKey().concat("=").concat(filter));
         }
       }
     }
@@ -216,7 +216,7 @@ public class ResourceList {
   }
 
   public String getFrom() {
-    return Integer.toString(itemsPerPage > 0 ? this.offset + 1 : 0);
+    return Integer.toString(itemsPerPage > 0 ? this.offset : 0);
   }
 
   public String getUntil() {
