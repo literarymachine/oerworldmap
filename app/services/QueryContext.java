@@ -45,6 +45,7 @@ public class QueryContext {
     guestAggregations.add(AggregationProvider.getKeywordsAggregation(0));
     guestAggregations.add(AggregationProvider.getLicenseAggregation(0));
     guestAggregations.add(AggregationProvider.getLocationAggregation(0));
+    guestAggregations.add(AggregationProvider.getEventCalendarAggregation());
 
     aggregations.put("guest", guestAggregations);
     aggregations.put("authenticated", guestAggregations);

@@ -61,21 +61,7 @@ public class ResourceList {
     return this.items;
   }
 
-  // TODO: remove setter when unwrapping records in BaseRepository becomes unnecessary
-  public void setItems(List<Resource> items) {
-    this.items = items;
-  }
-
-  public long getTotalItems() {
-    return this.totalItems;
-  }
-
-  public long getItemsPerPage() {
-    return this.itemsPerPage;
-  }
-
-  public String getCurrentPage() {
-
+  private String getCurrentPage() {
     ArrayList<String> params = new ArrayList<>();
     if (!StringUtils.isEmpty(searchTerms)) {
       params.add("q=".concat(searchTerms));
@@ -95,8 +81,7 @@ public class ResourceList {
     return params.isEmpty() ? null : "/resource/?".concat(StringUtils.join(params, "&"));
   }
 
-  public String getNextPage() {
-
+  private String getNextPage() {
     if (offset + itemsPerPage >= totalItems) {
       return null;
     }
@@ -121,8 +106,7 @@ public class ResourceList {
   }
 
 
-  public String getPreviousPage() {
-
+  private String getPreviousPage() {
     if (offset - itemsPerPage < 0) {
       return null;
     }
@@ -146,8 +130,7 @@ public class ResourceList {
     return params.isEmpty() ? null : "/resource/?".concat(StringUtils.join(params, "&"));
   }
 
-  public String getFirstPage() {
-
+  private String getFirstPage() {
     if (offset <= 0) {
       return null;
     }
@@ -171,8 +154,7 @@ public class ResourceList {
     return params.isEmpty() ? null : "/resource/?".concat(StringUtils.join(params, "&"));
   }
 
-  public String getLastPage() {
-
+  private String getLastPage() {
     if (offset + itemsPerPage >= totalItems) {
       return null;
     }
@@ -219,7 +201,7 @@ public class ResourceList {
     return Integer.toString(itemsPerPage > 0 ? this.offset : 0);
   }
 
-  public String getUntil() {
+  private String getUntil() {
     if(this.offset + this.itemsPerPage < this.totalItems) {
       return Long.toString(this.offset + this.itemsPerPage);
     } else {
@@ -248,7 +230,7 @@ public class ResourceList {
 
   public boolean containsType(String aType) {
     for (Resource item : items) {
-      if (item.getType().equals(aType)) {
+      if (item.getAsResource("about").getType().equals(aType)) {
         return true;
       }
     }

@@ -1214,10 +1214,12 @@ var Hijax = (function ($, Hijax) {
       // ... quite lengthy. Could need some refactoring. Probably by capsulating the resource/pin connection.
       $('[data-behaviour~="linkedListEntries"]', context).each(function(){
 
-        $( this ).on("mouseenter", "li", function() {
+        var list = this;
+
+        $( this ).on("mouseenter", "li[about]", function() {
 
           var id = this.getAttribute("about");
-          var script = $(this).closest("ul").children('script[type="application/ld+json"]');
+          var script = $(list).children('script[type="application/ld+json"]');
 
           if (script.length) {
 
@@ -1232,10 +1234,10 @@ var Hijax = (function ($, Hijax) {
           }
         });
 
-        $( this ).on("mouseleave", "li", function() {
+        $( this ).on("mouseleave", "li[about]", function() {
 
           var id = this.getAttribute("about");
-          var script = $(this).closest("ul").children('script[type="application/ld+json"]');
+          var script = $(list).children('script[type="application/ld+json"]');
 
           if (script.length) {
 
@@ -1308,7 +1310,23 @@ var Hijax = (function ($, Hijax) {
 
     initialized : new $.Deferred(),
 
-    attached : []
+    attached : [],
+
+    debugShowCountry : function(id){
+      var feature = countryVectorSource.getFeatureById(id);
+
+      feature.setStyle([new ol.style.Style({
+        fill: new ol.style.Fill({
+          color: '#ff0000'
+        })
+      })]);
+
+      var extent = ol.extent.createEmpty();
+      ol.extent.extend(extent, feature.getGeometry().getExtent());
+      world.getView().fit(extent, world.getSize(), {
+        minResolution: 2
+      });
+    }
 
   };
 
