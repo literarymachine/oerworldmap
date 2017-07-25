@@ -74,6 +74,12 @@
                     </div>
                 {{/image}}
 
+                {{#localized note language=@root.language}}
+                    <p>
+                        <em>{{[@value]}}</em>
+                    </p>
+                {{/localized}}
+
                 {{#localized description language=@root.language}}
                     <div class="html-from-markdown">
                         {{md [@value]}}
@@ -231,7 +237,7 @@
                                 <ul class="comma-seperated-list">
                                     {{#availableChannel}}
                                         {{#availableLanguage}}
-                                            <li>{{i18n . bundle = "languages"}}</li>
+                                            <li>{{i18n . bundle = "iso639-1"}}</li>
                                         {{/availableLanguage}}
                                     {{/availableChannel}}
                                 </ul>
@@ -245,7 +251,7 @@
                             <td>
                                 <ul class="comma-seperated-list">
                                     {{#inLanguage}}
-                                        <li>{{i18n . bundle = "languages"}}</li>
+                                        <li>{{i18n . bundle = "iso639-1"}}</li>
                                     {{/inLanguage}}
                                 </ul>
                             </td>
@@ -718,6 +724,62 @@
                                     {{#instrumentIn}}
                                         <li>{{>ResourceIndex/link.mustache}}</li>
                                     {{/instrumentIn}}
+                                </ul>
+                            </td>
+                        </tr>
+                    {{/if}}
+
+                    {{#if spatialCoverage}}
+                        <tr>
+                            <td>{{i18n (stringFormat "%s.spatialCoverage" @type)}}</td>
+                            <td>
+                                {{spatialCoverage}}
+                            </td>
+                        </tr>
+                    {{/if}}
+
+                    {{#if datePublished}}
+                        <tr>
+                            <td>{{i18n (stringFormat "%s.datePublished" @type)}}</td>
+                            <td>
+                                {{datePublished}}
+                            </td>
+                        </tr>
+                    {{/if}}
+
+                    {{#if license_name}}
+                        <tr>
+                            <td>{{i18n (stringFormat "%s.license_name" @type)}}</td>
+                            <td>
+                                {{license_name}}
+                            </td>
+                        </tr>
+                    {{/if}}
+
+                    {{#if status}}
+                        <tr>
+                            <td>{{i18n (stringFormat "%s.status" @type)}}</td>
+                            <td>
+                                {{status}}
+                            </td>
+                        </tr>
+                    {{/if}}
+
+                    {{#if sourceOrganization}}
+                        <tr>
+                            <td>{{i18n (stringFormat "%s.sourceOrganization" @type)}}</td>
+                            <td>
+                                {{sourceOrganization}}
+                            </td>
+                        </tr>
+                    {{/if}}
+
+                    {{#if authors}}
+                        <tr>
+                            <td>{{i18n (stringFormat "%s.authors" @type)}}</td>
+                            <td>
+                                <ul class="comma-seperated-list">
+                                    {{#authors}}<li>{{.}}</li>{{/authors}}
                                 </ul>
                             </td>
                         </tr>

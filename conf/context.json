@@ -41,6 +41,9 @@
     "author": {
       "@container": "@set"
     },
+    "authors": {
+      "@container": "@set"
+    },
     "authorOf": {
       "@container": "@set"
     },
@@ -163,6 +166,9 @@
     },
     "notation": {
       "@id": "skos:notation",
+      "@container": "@set"
+    },
+    "note": {
       "@container": "@set"
     },
     "organizer": {

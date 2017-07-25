@@ -75,7 +75,6 @@
         },
         "url": {
           "type": "string",
-          "format": "uri"
         },
         "keywords": {
           "type": "array",
@@ -93,18 +92,40 @@
             ]
           }
         },
-        "comment": {
-          "description": "A comment about the bookmark",
+        "note": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
+        },
+        "inLanguage": {
           "type": "array",
           "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
+            "type": "string"
           }
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        },
+        "datePublished": {
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "license_name": {
+          "type": "string"
+        },
+        "spatialCoverage": {
+          "type": "string"
+        },
+        "sourceOrganization": {
+          "type": "string"
         }
       },
-      "required": [ "name", "url" ],
       "additionalProperties": false
     },
     "ConceptScheme": {
@@ -1592,7 +1613,6 @@
           "$ref": "#/definitions/Country"
         }
       },
-      "required": [ "addressCountry" ],
       "additionalProperties": false
     },
     "LocalizedString": {
