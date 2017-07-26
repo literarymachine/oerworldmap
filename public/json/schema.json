@@ -74,7 +74,7 @@
           "$ref": "#/definitions/LocalizedString"
         },
         "url": {
-          "type": "string",
+          "type": "string"
         },
         "keywords": {
           "type": "array",
