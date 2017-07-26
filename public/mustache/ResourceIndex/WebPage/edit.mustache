@@ -8,14 +8,28 @@
 
     {{> FormElements/localizedInput.mustache property=name property_path="name" title=(i18n "WebPage.name") tooltip=(i18n "WebPage.name" bundle="descriptions")}}
 
+    {{> FormElements/localizedInput.mustache property=note property_path="note" title=(i18n "WebPage.note") tooltip=(i18n "WebPage.note" bundle="descriptions")}}
+
+    {{> FormElements/select.mustache property=inLanguage property_path="inLanguage" title=(i18n "WebPage.inLanguage") tooltip=(i18n "WebPage.inLanguage" bundle="descriptions") hidden=false multiple=true input_type="text" options="iso639-1"}}
+
     {{> FormElements/input.mustache property=url property_path="url" title=(i18n "WebPage.url") tooltip=(i18n "WebPage.url" bundle="descriptions") hidden=false multiple=false input_type="url"}}
 
     {{> FormElements/localizedTextarea.mustache property=description property_path="description" title=(i18n "WebPage.description") tooltip=(i18n "WebPage.description" bundle="descriptions")}}
 
+    {{> ResourceIndex/Place/edit.mustache property=location property_path="location" title=(i18n "WebPage.location") tooltip=(i18n "WebPage.location" bundle="descriptions")}}
+
+    {{> FormElements/input.mustache property=authors property_path="authors" title=(i18n "WebPage.authors") tooltip=(i18n "WebPage.authors" bundle="descriptions") hidden=false multiple=true input_type="text"}}
+
     {{> FormElements/input.mustache property=keywords property_path="keywords" title=(i18n "WebPage.keywords") tooltip=(i18n "WebPage.keywords" bundle="descriptions") hidden=false multiple=true input_type="text" list="keywords"}}
 
-    {{> FormElements/id.mustache property=publisher property_path="publisher" title=(i18n "WebPage.publisher") tooltip=(i18n "WebPage.publisher" bundle="descriptions") hidden=false multiple=true lookup_url="/resource/?filter.about.@type=Organization&filter.about.@type=Person&filter.about.@type=Service&filter.about.@type=Event&filter.about.@type=Action"}}
+    {{> FormElements/input.mustache property=status property_path="status" title=(i18n "WebPage.status") tooltip=(i18n "WebPage.status" bundle="descriptions") hidden=false multiple=false input_type="text"}}
 
-    {{> FormElements/id.mustache property=comment property_path="comment" title=(i18n "WebPage.comment") tooltip=(i18n "WebPage.comment" bundle="descriptions") hidden=true multiple=true lookup_url="/resource/?filter.about.@type=Comment"}}
+    {{> FormElements/input.mustache property=datePublished property_path="datePublished" title=(i18n "WebPage.datePublished") tooltip=(i18n "WebPage.datePublished" bundle="descriptions") hidden=false multiple=false input_type="text" placeholder="YYYY-MM-DD" pattern="^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$"}}
+
+    {{> FormElements/input.mustache property=license_name property_path="license_name" title=(i18n "WebPage.license_name") tooltip=(i18n "WebPage.license_name" bundle="descriptions") hidden=false multiple=false input_type="text"}}
+
+    {{> FormElements/input.mustache property=spatialCoverage property_path="spatialCoverage" title=(i18n "WebPage.spatialCoverage") tooltip=(i18n "WebPage.spatialCoverage" bundle="descriptions") hidden=false multiple=false input_type="text"}}
+
+    {{> FormElements/input.mustache property=sourceOrganization property_path="sourceOrganization" title=(i18n "WebPage.sourceOrganization") tooltip=(i18n "WebPage.sourceOrganization" bundle="descriptions") hidden=false multiple=false input_type="text"}}
 
 </fieldset>
