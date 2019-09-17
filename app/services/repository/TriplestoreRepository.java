@@ -214,45 +214,8 @@ public class TriplestoreRepository extends Repository implements Readable, Writa
           aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.sameAs, (RDFNode) null)
         );
         identifyingDescriptions.add(
-          aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.agent, (RDFNode) null)
-        );
-        identifyingDescriptions.add(
-          aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.provider, (RDFNode) null)
-        );
-        identifyingDescriptions.add(
-          getIdentifyingDescriptions(
-            aModel.listObjectsOfProperty((org.apache.jena.rdf.model.Resource) node, SCHEMA.provider), aModel, skip));
-        identifyingDescriptions.add(
-          aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.object, (RDFNode) null)
-        );
-        identifyingDescriptions.add(
-          getIdentifyingDescriptions(
-            aModel.listObjectsOfProperty((org.apache.jena.rdf.model.Resource) node, SCHEMA.object), aModel, skip));
-        identifyingDescriptions.add(
           aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.description, (RDFNode) null)
         );
-        identifyingDescriptions.add(
-          aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.text, (RDFNode) null)
-        );
-        identifyingDescriptions.add(
-          aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.startTime, (RDFNode) null)
-        );
-        identifyingDescriptions.add(
-          aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.dateCreated, (RDFNode) null)
-        );
-        identifyingDescriptions.add(
-          aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.author, (RDFNode) null)
-        );
-        identifyingDescriptions.add(
-          aModel.listStatements((org.apache.jena.rdf.model.Resource) node, SCHEMA.location, (RDFNode) null)
-        );
-        String describeLocations = String.format(
-          "DESCRIBE ?location WHERE { <%1$s> <http://schema.org/location> ?location }", node
-        );
-        try (QueryExecution queryExecution = QueryExecutionFactory
-          .create(QueryFactory.create(describeLocations), aModel)) {
-          queryExecution.execDescribe(identifyingDescriptions);
-        }
       }
     }
     return identifyingDescriptions;
