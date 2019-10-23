@@ -38,19 +38,10 @@ public class ResourceIndexer {
   private String mContextUrl;
 
   private final static String GLOBAL_QUERY_TEMPLATE =
-    "SELECT DISTINCT ?s WHERE {" +
-      "    ?s a []" +
-      "}";
+    "SELECT DISTINCT ?s WHERE { ?s a [] }";
 
-  // TODO: evaluate if there are other properties to exclude from triggering indexing
   private final static String SCOPE_QUERY_TEMPLATE =
-    "SELECT DISTINCT ?s1 WHERE {" +
-      "    ?s1 ?p1 <%1$s> ." +
-      "    FILTER ( ?p1 != <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> )" +
-      "    OPTIONAL { ?y a <http://www.w3.org/2004/02/skos/core#Concept> . FILTER (<%1$s> = ?y) . }"
-      +
-      "    FILTER ( !BOUND(?y) ) " +
-      "}";
+    "SELECT DISTINCT ?s1 WHERE { ?s1 ?p1 <%1$s> }";
 
   public ResourceIndexer(Model aDb, Writable aTargetRepo, GraphHistory aGraphHistory, AccountService aAccountService,
                          String aContextUrl) {
