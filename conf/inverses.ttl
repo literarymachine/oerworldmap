@@ -11,8 +11,6 @@
 :provides owl:inverseOf :provider .
 :creator owl:inverseOf :created .
 :created owl:inverseOf :creator .
-:agent owl:inverseOf :agentIn .
-:agentIn owl:inverseOf :agent .
 :participant owl:inverseOf :participantIn .
 :participantIn owl:inverseOf :participant .
 :organizer owl:inverseOf :organizerFor .
@@ -41,8 +39,6 @@ dcterms:hasPart owl:inverseOf dcterms:isPartOf .
 :isRelatedTo owl:inverseOf :isRelatedTo .
 :manufacturer owl:inverseOf :manufactured .
 :manufactured owl:inverseOf :manufacturer .
-:object owl:inverseOf :objectIn .
-:objectIn owl:inverseOf :object .
 :result owl:inverseOf :resultOf .
 :resultOf owl:inverseOf :result .
 :comment owl:inverseOf :commentOn .
