@@ -227,9 +227,9 @@ public class ResourceIndexer {
             .put(Record.DATE_CREATED, history.get(history.size() - 1).getHeader().getTimestamp()
               .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
         }
-        metadata.put(Record.LINK_COUNT, String.valueOf(aResource.getNumberOfSubFields("**.@id")));
-        metadata
-          .put(Record.LIKE_COUNT, String.valueOf(aResource.getAsList("objectIn").stream().filter(
+        // TODO: refactor by loading and counting actions from mDb
+        metadata.put(Record.LIKE_COUNT,
+          String.valueOf(aResource.getAsList("objectIn").stream().filter(
             resource -> resource.getType().equals("LikeAction")).count()));
         metadata.put(Record.LIGHTHOUSE_COUNT,
           String.valueOf(aResource.getAsList("objectIn").stream().filter(
