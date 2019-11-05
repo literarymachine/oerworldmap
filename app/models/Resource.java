@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -87,7 +86,6 @@ public class Resource extends HashMap<String, Object> implements Comparable<Reso
    * @param aProperties The map to create the resource from
    * @return a Resource containing all given properties
    */
-  @SuppressWarnings("unchecked")
   public static Resource fromMap(Map<String, Object> aProperties) {
 
     if (aProperties == null) {
@@ -166,6 +164,7 @@ public class Resource extends HashMap<String, Object> implements Comparable<Reso
     return (result != null) && ((boolean) result);
   }
 
+  @SuppressWarnings("unchecked")
   public List<Resource> getAsList(final Object aKey) {
     List<Resource> list = new ArrayList<>();
     Object result = get(aKey);
@@ -181,11 +180,13 @@ public class Resource extends HashMap<String, Object> implements Comparable<Reso
     return list;
   }
 
+  @SuppressWarnings("unchecked")
   public Resource getAsResource(final Object aKey) {
     Object result = get(aKey);
     return result instanceof Map<?, ?> ? Resource.fromMap((Map<String, Object>) result) : null;
   }
 
+  @SuppressWarnings("unchecked")
   Map<?, ?> getAsMap(final String aKey) {
     Object result = get(aKey);
     if (result instanceof Map<?, ?>) {
@@ -204,9 +205,7 @@ public class Resource extends HashMap<String, Object> implements Comparable<Reso
     if (other.size() != this.size()) {
       return false;
     }
-    final Iterator<Map.Entry<String, Object>> thisIt = this.entrySet().iterator();
-    while (thisIt.hasNext()) {
-      final Map.Entry<String, Object> pair = thisIt.next();
+    for (Entry<String, Object> pair : this.entrySet()) {
       if (pair.getValue() instanceof List<?>) {
         if (!(other.get(pair.getKey()) instanceof List<?>)) {
           return false;
