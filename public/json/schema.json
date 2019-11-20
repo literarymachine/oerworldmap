@@ -223,20 +223,6 @@
             }
           }
         },
-        "comment": {
-          "title": "WebPage.comment",
-          "description": "descriptions.WebPage.comment",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
-        },
         "award": {
           "title": "WebPage.award",
           "description": "descriptions.WebPage.award",
@@ -674,20 +660,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "comment": {
-          "title": "Policy.comment",
-          "description": "descriptions.Policy.comment",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
         }
       },
       "required": [ "name", "url" ],
@@ -902,20 +874,6 @@
             "type": "string"
           }
         },
-        "comment": {
-          "title": "Article.comment",
-          "description": "descriptions.Article.comment",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
-        },
         "location": {
           "type": "array",
           "maxItems": 1,
@@ -1046,7 +1004,7 @@
           }
         },
         "author": {
-          "title": "Comment.creator",
+          "title": "Comment.author",
           "description": "descriptions.Comment.author",
           "type": "array",
           "items": {
@@ -1310,20 +1268,6 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
-        },
-        "comment": {
-          "title": "Project.comment",
-          "description": "descriptions.Project.comment",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
           }
         },
         "isPartOf": {
@@ -1806,20 +1750,6 @@
             ]
           }
         },
-        "comment": {
-          "title": "Service.comment",
-          "description": "descriptions.Service.comment",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
-        },
         "primarySector": {
           "title": "Service.primarySector",
           "description": "descriptions.Service.primarySector",
@@ -2140,20 +2070,6 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
-        },
-        "authorOf": {
-          "title": "Person.authorOf",
-          "description": "descriptions.Person.authorOf",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
           }
         },
         "organizerFor": {
@@ -2568,20 +2484,6 @@
             ]
           }
         },
-        "comment": {
-          "title": "Organization.comment",
-          "description": "descriptions.Organization.comment",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
-        },
         "awards": {
           "title": "Organization.awards",
           "description": "descriptions.Organization.awards",
@@ -2882,20 +2784,6 @@
             ]
           }
         },
-        "comment": {
-          "title": "Event.comment",
-          "description": "descriptions.Event.comment",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
-        },
         "primarySector": {
           "title": "Event.primarySector",
           "description": "descriptions.Event.primarySector",
@@ -3053,20 +2941,6 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
-        },
-        "comment": {
-          "title": "Product.comment",
-          "description": "descriptions.Product.comment",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
           }
         },
         "primarySector": {

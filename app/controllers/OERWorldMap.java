@@ -63,7 +63,7 @@ public abstract class OERWorldMap extends Controller {
   private static synchronized void createAccountService(Configuration aConf) {
     Configuration keycloakConfig = aConf.getConfig("keycloak");
     if (mAccountService == null) {
-      if (keycloakConfig != null) {
+      if (false && keycloakConfig != null) {
         mAccountService = new KeycloakAccountService(
           keycloakConfig.getString("serverUrl"),
           keycloakConfig.getString("realm"),
