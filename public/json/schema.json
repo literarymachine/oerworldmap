@@ -12,7 +12,7 @@
       "$ref": "#/definitions/Service"
     },
     {
-      "$ref": "#/definitions/Action"
+      "$ref": "#/definitions/Project"
     },
     {
       "$ref": "#/definitions/Concept"
@@ -163,7 +163,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person", "Organization", "Event", "Action", "Service" ] } } }
+              { "properties": { "@type": { "enum": [ "Person", "Organization", "Event", "Project", "Service" ] } } }
             ]
           }
         },
@@ -290,20 +290,6 @@
             ]
           }
         },
-        "objectIn": {
-          "title": "WebPage.objectIn",
-          "description": "descriptions.WebPage.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
-        },
         "isBasedOn": {
           "title": "WebPage.isBasedOn",
           "description": "descriptions.WebPage.isBasedOn",
@@ -322,7 +308,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "WebPage", "Action", "Service", "Policy" ] } } }
+              { "properties": { "@type": { "enum": [ "WebPage", "Project", "Service", "Policy" ] } } }
             ]
           }
         },
@@ -333,7 +319,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Organization", "Person", "Service", "Action", "Event", "Policy" ] } } }
+              { "properties": { "@type": { "enum": [ "Organization", "Person", "Service", "Project", "Event", "Policy" ] } } }
             ]
           }
         },
@@ -528,7 +514,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person", "Organization", "Event", "Action", "Service" ] } } }
+              { "properties": { "@type": { "enum": [ "Person", "Organization", "Event", "Project", "Service" ] } } }
             ]
           }
         },
@@ -653,7 +639,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "WebPage", "Action", "Service", "Policy" ] } } }
+              { "properties": { "@type": { "enum": [ "WebPage", "Project", "Service", "Policy" ] } } }
             ]
           }
         },
@@ -697,20 +683,6 @@
             "allOf": [
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
-        },
-        "objectIn": {
-          "title": "Policy.objectIn",
-          "description": "descriptions.Policy.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
             ]
           },
           "_display": {
@@ -917,7 +889,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Organization", "Person", "Service", "Action", "Event", "Policy" ] } } }
+              { "properties": { "@type": { "enum": [ "Organization", "Person", "Service", "Project", "Event", "Policy" ] } } }
             ]
           }
         },
@@ -1025,20 +997,6 @@
           "_display": {
             "rows": 3
           }
-        },
-        "objectIn": {
-          "title": "Article.objectIn",
-          "description": "descriptions.Article.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
         }
       },
       "allOf": [
@@ -1125,9 +1083,9 @@
       "required": [ "text" ],
       "additionalProperties": false
     },
-    "Action": {
+    "Project": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "Action",
+      "title": "Project",
       "type": "object",
       "properties": {
         "@context": {
@@ -1138,7 +1096,7 @@
           }
         },
         "@id": {
-          "description": "The action's unique identifier",
+          "description": "The project's unique identifier",
           "type": "string",
           "format": "uri",
           "_display": {
@@ -1148,25 +1106,25 @@
         "@type": {
           "type": "string",
           "enum": [
-            "Action"
+            "Project"
           ],
           "_display": {
             "className": "hidden"
           }
         },
         "name": {
-          "title": "Action.name",
-          "description": "descriptions.Action.name",
+          "title": "Project.name",
+          "description": "descriptions.Project.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "displayName": {
-          "title": "Action.displayName",
-          "description": "descriptions.Action.displayName",
+          "title": "Project.displayName",
+          "description": "descriptions.Project.displayName",
           "$ref": "#/definitions/LocalizedString"
         },
         "additionalType": {
-          "title": "Action.additionalType",
-          "description": "descriptions.Action.additionalType",
+          "title": "Project.additionalType",
+          "description": "descriptions.Project.additionalType",
           "type": "array",
           "items": {
             "allOf": [
@@ -1185,8 +1143,8 @@
           }
         },
         "email": {
-          "title": "Action.email",
-          "description": "descriptions.Action.email",
+          "title": "Project.email",
+          "description": "descriptions.Project.email",
           "type": "string",
           "format": "email",
           "_display": {
@@ -1194,19 +1152,19 @@
           }
         },
         "alternateName": {
-          "title": "Action.alternateName",
-          "description": "descriptions.Action.alternateName",
+          "title": "Project.alternateName",
+          "description": "descriptions.Project.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
-          "title": "Action.description",
-          "description": "descriptions.Action.description",
+          "title": "Project.description",
+          "description": "descriptions.Project.description",
           "$ref": "#/definitions/LocalizedString",
           "_display": { "rows":  5 }
         },
         "image": {
-          "title": "Action.image",
-          "description": "descriptions.Action.image",
+          "title": "Project.image",
+          "description": "descriptions.Project.image",
           "type": "string",
           "format": "uri",
           "_display": {
@@ -1214,8 +1172,8 @@
           }
         },
         "url": {
-          "title": "Action.url",
-          "description": "descriptions.Action.url",
+          "title": "Project.url",
+          "description": "descriptions.Project.url",
           "type": "string",
           "format": "uri",
           "_display": {
@@ -1223,18 +1181,18 @@
           }
         },
         "startTime": {
-          "title": "Action.startTime",
-          "description": "descriptions.Action.startTime",
+          "title": "Project.startTime",
+          "description": "descriptions.Project.startTime",
           "$ref": "#/definitions/iso-8601-date"
         },
         "endTime": {
-          "title": "Action.endTime",
-          "description": "descriptions.Action.endTime",
+          "title": "Project.endTime",
+          "description": "descriptions.Project.endTime",
           "$ref": "#/definitions/iso-8601-date"
         },
         "location": {
-          "title": "Action.location",
-          "description": "ResourceIndex.Action.edit.addressMessage",
+          "title": "Project.location",
+          "description": "ResourceIndex.Project.edit.addressMessage",
           "type": "array",
           "maxItems": 1,
           "items": {
@@ -1245,8 +1203,8 @@
           }
         },
         "instrument": {
-          "title": "Action.instrument",
-          "description": "descriptions.Action.instrument",
+          "title": "Project.instrument",
+          "description": "descriptions.Project.instrument",
           "type": "array",
           "items": {
             "allOf": [
@@ -1259,8 +1217,8 @@
           }
         },
         "result": {
-          "title": "Action.result",
-          "description": "descriptions.Action.result",
+          "title": "Project.result",
+          "description": "descriptions.Project.result",
           "type": "array",
           "items": {
             "allOf": [
@@ -1272,9 +1230,9 @@
             "className": "hidden"
           }
         },
-        "agent": {
-          "title": "Action.agent",
-          "description": "descriptions.Action.agent",
+        "member": {
+          "title": "Project.member",
+          "description": "descriptions.Project.member",
           "type": "array",
           "items": {
             "allOf": [
@@ -1284,8 +1242,8 @@
           }
         },
         "participant": {
-          "title": "Action.participant",
-          "description": "descriptions.Action.participant",
+          "title": "Project.participant",
+          "description": "descriptions.Project.participant",
           "type": "array",
           "items": {
             "allOf": [
@@ -1295,8 +1253,8 @@
           }
         },
         "memberOf": {
-          "title": "Action.memberOf",
-          "description": "descriptions.Action.memberOf",
+          "title": "Project.memberOf",
+          "description": "descriptions.Project.memberOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -1306,8 +1264,8 @@
           }
         },
         "affiliate": {
-          "title": "Action.affiliate",
-          "description": "descriptions.Action.affiliate",
+          "title": "Project.affiliate",
+          "description": "descriptions.Project.affiliate",
           "type": "array",
           "items": {
             "allOf": [
@@ -1320,8 +1278,8 @@
           }
         },
         "mentionedIn": {
-          "title": "Action.mentionedIn",
-          "description": "descriptions.Action.mentionedIn",
+          "title": "Project.mentionedIn",
+          "description": "descriptions.Project.mentionedIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1334,8 +1292,8 @@
           }
         },
         "sameAs": {
-          "title": "Action.sameAs",
-          "description": "descriptions.Action.sameAs",
+          "title": "Project.sameAs",
+          "description": "descriptions.Project.sameAs",
           "type": "array",
           "items": {
             "type": "string",
@@ -1346,8 +1304,8 @@
           }
         },
         "keywords": {
-          "title": "Action.keywords",
-          "description": "descriptions.Action.keywords",
+          "title": "Project.keywords",
+          "description": "descriptions.Project.keywords",
           "_widget": "KeywordSelect",
           "type": "array",
           "items": {
@@ -1355,8 +1313,8 @@
           }
         },
         "comment": {
-          "title": "Action.comment",
-          "description": "descriptions.Action.comment",
+          "title": "Project.comment",
+          "description": "descriptions.Project.comment",
           "type": "array",
           "items": {
             "allOf": [
@@ -1369,27 +1327,27 @@
           }
         },
         "isPartOf": {
-          "title": "Action.isPartOf",
-          "description": "descriptions.Action.isPartOf",
+          "title": "Project.isPartOf",
+          "description": "descriptions.Project.isPartOf",
           "allOf": [
             { "$ref": "#/definitions/Link" },
-            { "properties": { "@type": { "enum": [ "Action" ] } } }
+            { "properties": { "@type": { "enum": [ "Project" ] } } }
           ]
         },
         "hasPart": {
-          "title": "Action.hasPart",
-          "description": "descriptions.Action.hasPart",
+          "title": "Project.hasPart",
+          "description": "descriptions.Project.hasPart",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Project" ] } } }
             ]
           }
         },
         "organizerFor": {
-          "title": "Action.organizerFor",
-          "description": "descriptions.Action.organizerFor",
+          "title": "Project.organizerFor",
+          "description": "descriptions.Project.organizerFor",
           "type": "array",
           "items": {
             "allOf": [
@@ -1402,8 +1360,8 @@
           }
         },
         "publication": {
-          "title": "Action.publication",
-          "description": "descriptions.Action.publication",
+          "title": "Project.publication",
+          "description": "descriptions.Project.publication",
           "type": "array",
           "items": {
             "allOf": [
@@ -1413,8 +1371,8 @@
           }
         },
         "isFundedBy": {
-          "title": "Action.isFundedBy",
-          "description": "descriptions.Action.isFundedBy",
+          "title": "Project.isFundedBy",
+          "description": "descriptions.Project.isFundedBy",
           "type": "array",
           "maxItems": 1,
           "items": {
@@ -1422,8 +1380,8 @@
           }
         },
         "primarySector": {
-          "title": "Action.primarySector",
-          "description": "descriptions.Action.primarySector",
+          "title": "Project.primarySector",
+          "description": "descriptions.Project.primarySector",
           "type": "array",
           "maxItems": 1,
           "items": {
@@ -1443,8 +1401,8 @@
           }
         },
         "secondarySector": {
-          "title": "Action.secondarySector",
-          "description": "descriptions.Action.secondarySector",
+          "title": "Project.secondarySector",
+          "description": "descriptions.Project.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1463,8 +1421,8 @@
           }
         },
         "award": {
-          "title": "Action.award",
-          "description": "descriptions.Action.award",
+          "title": "Project.award",
+          "description": "descriptions.Project.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -1474,23 +1432,9 @@
             "className": "admin only"
           }
         },
-        "objectIn": {
-          "title": "Action.objectIn",
-          "description": "descriptions.Action.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
-        },
         "isBasedOn": {
-          "title": "Action.isBasedOn",
-          "description": "descriptions.Action.isBasedOn",
+          "title": "Project.isBasedOn",
+          "description": "descriptions.Project.isBasedOn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1770,7 +1714,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Project" ] } } }
             ]
           },
           "_display": {
@@ -1784,7 +1728,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Project" ] } } }
             ]
           },
           "_display": {
@@ -1938,20 +1882,6 @@
           },
           "_display": {
             "className": "admin only"
-          }
-        },
-        "objectIn": {
-          "title": "Service.objectIn",
-          "description": "descriptions.Service.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
           }
         },
         "isBasedOn": {
@@ -2134,7 +2064,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Project" ] } } }
             ]
           },
           "_display": {
@@ -2152,14 +2082,14 @@
             ]
           }
         },
-        "agentIn": {
-          "title": "Person.agentIn",
-          "description": "descriptions.Person.agentIn",
+        "memberOf": {
+          "title": "Person.memberOf",
+          "description": "descriptions.Person.memberOf",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action", "LikeAction", "LighthouseAction" ] } } }
+              { "properties": { "@type": { "enum": [ "Project" ] } } }
             ]
           },
           "_display": {
@@ -2173,7 +2103,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Organization", "Service", "Action", "Policy" ] } } }
+              { "properties": { "@type": { "enum": [ "Organization", "Service", "Project", "Policy" ] } } }
             ]
           }
         },
@@ -2196,7 +2126,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Project" ] } } }
             ]
           },
           "_display": {
@@ -2535,7 +2465,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Project" ] } } }
             ]
           },
           "_display": {
@@ -2556,20 +2486,6 @@
             "className": "hidden"
           }
         },
-        "agentIn": {
-          "title": "Organization.agentIn",
-          "description": "descriptions.Organization.agentIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
-        },
         "member": {
           "title": "Organization.member",
           "description": "descriptions.Organization.member",
@@ -2577,7 +2493,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Organization", "Service", "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Organization", "Service", "Project" ] } } }
             ]
           },
           "_display": {
@@ -2591,7 +2507,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Organization", "Service" ] } } }
+              { "properties": { "@type": { "enum": [ "Organization", "Service", "Project" ] } } }
             ]
           }
         },
@@ -2743,20 +2659,6 @@
           "_display": {
             "className": "admin only"
           }
-        },
-        "objectIn": {
-          "title": "Organization.objectIn",
-          "description": "descriptions.Organization.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
         }
       },
       "required": [ "name", "location" ],
@@ -2903,7 +2805,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person", "Organization", "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Person", "Organization", "Project" ] } } }
             ]
           }
         },
@@ -3045,20 +2947,6 @@
           },
           "_display": {
             "className": "admin only"
-          }
-        },
-        "objectIn": {
-          "title": "Event.objectIn",
-          "description": "descriptions.Event.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
           }
         }
       },
@@ -3233,20 +3121,6 @@
           "_display": {
             "className": "admin only"
           }
-        },
-        "objectIn": {
-          "title": "Product.objectIn",
-          "description": "descriptions.Product.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
-          },
-          "_display": {
-            "className": "hidden"
-          }
         }
       },
       "required": [ "name" ],
@@ -3300,7 +3174,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Project" ] } } }
             ]
           },
           "_display": {
@@ -3543,13 +3417,11 @@
         "agent": {
           "title": "LikeAction.agent",
           "description": "The agent of the like action",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person" ] } } }
-            ]
-          },
+          "type": "object",
+          "allOf": [
+            { "$ref": "#/definitions/Link" },
+            { "properties": { "@type": { "enum": [ "Person" ] } } }
+          ],
           "_display": {
             "className": "hidden"
           }
@@ -3560,7 +3432,7 @@
           "type": "object",
           "allOf": [
             { "$ref": "#/definitions/Link" },
-            { "properties": { "@type": { "enum": [ "Organization", "Action", "Service", "Product", "Event", "Article", "WebPage", "Policy" ] } } }
+            { "properties": { "@type": { "enum": [ "Organization", "Project", "Service", "Product", "Event", "Article", "WebPage", "Policy" ] } } }
           ],
           "_display": {
             "className": "hidden"
@@ -3609,13 +3481,11 @@
         "agent": {
           "title": "LighthouseAction.agent",
           "description": "The agent of the like action",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person" ] } } }
-            ]
-          },
+          "type": "object",
+          "allOf": [
+            { "$ref": "#/definitions/Link" },
+            { "properties": { "@type": { "enum": [ "Person" ] } } }
+          ],
           "_display": {
             "className": "hidden"
           }
@@ -3626,7 +3496,7 @@
           "type": "object",
           "allOf": [
             { "$ref": "#/definitions/Link" },
-            { "properties": { "@type": { "enum": [ "Organization", "Action", "Service", "Product", "Event", "Article", "WebPage", "Policy" ] } } }
+            { "properties": { "@type": { "enum": [ "Organization", "Project", "Service", "Product", "Event", "Article", "WebPage", "Policy" ] } } }
           ],
           "_display": {
             "className": "hidden"

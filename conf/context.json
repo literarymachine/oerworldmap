@@ -17,12 +17,6 @@
     "affiliate": {
       "@container": "@set"
     },
-    "agent": {
-      "@container": "@set"
-    },
-    "agentIn": {
-      "@container": "@set"
-    },
     "alternateName": {
       "@container": "@language"
     },
@@ -190,9 +184,6 @@
     },
     "notation": {
       "@id": "skos:notation",
-      "@container": "@set"
-    },
-    "objectIn": {
       "@container": "@set"
     },
     "organizer": {
