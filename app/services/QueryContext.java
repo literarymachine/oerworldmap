@@ -28,16 +28,6 @@ public class QueryContext {
   private List<GeoPoint> mPolygonFilter = new ArrayList<>();
 
   public QueryContext(List<String> roles) {
-
-    QueryBuilder concepts = QueryBuilders.boolQuery()
-      .mustNot(QueryBuilders.termQuery("about.@type", "Concept"))
-      .mustNot(QueryBuilders.termQuery("about.@type", "ConceptScheme"));
-
-    filters.put("concepts", concepts);
-
-    // QueryBuilder emptyNames = QueryBuilders.existsQuery("about.name");
-    // filters.put("emptyNames", emptyNames);
-
     if (roles != null) {
       this.roles = roles;
     } else {

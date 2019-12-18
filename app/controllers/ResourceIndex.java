@@ -88,6 +88,13 @@ public class ResourceIndex extends OERWorldMap {
       }
     }
 
+    // Set default for filter.about.@type
+    if (!filters.containsKey("about.@type")) {
+      filters.put("about.@type", Arrays.asList(
+        "Organization", "Event", "Person", "Project", "WebPage", "Article", "Service", "Product", "Policy"
+      ));
+    }
+
     // Handle special filter case for event calendar
     if (filters.containsKey("about.@type")
       && filters.get("about.@type").size() == 1

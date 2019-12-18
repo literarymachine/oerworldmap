@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author fo
@@ -48,7 +49,11 @@ public class ResourceList {
     from = aFrom;
     size = aSize;
     sort = aSort;
-    filters = aFilters;
+    filters = aFilters != null
+      ? aFilters.entrySet().stream()
+        .filter(entry -> !(entry.getKey().equals("about.@type") && entry.getValue().size() == 9))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
+      : null;
     aggregations = aAggregations;
   }
 
