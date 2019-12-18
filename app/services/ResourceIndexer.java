@@ -43,6 +43,15 @@ public class ResourceIndexer {
   private final static String SCOPE_QUERY_TEMPLATE =
     "SELECT DISTINCT ?s1 WHERE { ?s1 ?p1 <%1$s> }";
 
+  private final static String LINK_COUNT_QUERY_TEMPLATE =
+    "SELECT (count(?p) as ?link_count) WHERE { _:s ?p <%1$s> }";
+
+  private final static String LIKE_COUNT_QUERY_TEMPLATE =
+    "SELECT (count(distinct ?like) as ?like_count) WHERE { ?like a <http://schema.org/LikeAction> . ?like <http://schema.org/object> <%1$s> . }";
+
+  private final static String LIGHTHOUSE_COUNT_QUERY_TEMPLATE =
+    "SELECT (count(distinct ?lighthouse) as ?lighthouse_count) WHERE { ?lighthouse a <http://schema.org/LighthouseAction> . ?lighthouse <http://schema.org/object> <%1$s> . }";
+
   public ResourceIndexer(Model aDb, Writable aTargetRepo, GraphHistory aGraphHistory, AccountService aAccountService,
                          String aContextUrl) {
     mDb = aDb;
@@ -227,13 +236,23 @@ public class ResourceIndexer {
             .put(Record.DATE_CREATED, history.get(history.size() - 1).getHeader().getTimestamp()
               .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
         }
-        // TODO: refactor by loading and counting actions from mDb
-        metadata.put(Record.LIKE_COUNT,
-          String.valueOf(aResource.getAsList("objectIn").stream().filter(
-            resource -> resource.getType().equals("LikeAction")).count()));
-        metadata.put(Record.LIGHTHOUSE_COUNT,
-          String.valueOf(aResource.getAsList("objectIn").stream().filter(
-            resource -> resource.getType().equals("LighthouseAction")).count()));
+        mDb.enterCriticalSection(Lock.READ);
+        try {
+          try (QueryExecution queryExecution = QueryExecutionFactory
+            .create(QueryFactory.create(String.format(LINK_COUNT_QUERY_TEMPLATE, aResource.getId())), mDb)) {
+            metadata.put(Record.LINK_COUNT, queryExecution.execSelect().next().get("link_count").asLiteral().getString());
+          }
+          try (QueryExecution queryExecution = QueryExecutionFactory
+            .create(QueryFactory.create(String.format(LIKE_COUNT_QUERY_TEMPLATE, aResource.getId())), mDb)) {
+            metadata.put(Record.LIKE_COUNT, queryExecution.execSelect().next().get("like_count").asLiteral().getString());
+          }
+          try (QueryExecution queryExecution = QueryExecutionFactory
+            .create(QueryFactory.create(String.format(LIGHTHOUSE_COUNT_QUERY_TEMPLATE, aResource.getId())), mDb)) {
+            metadata.put(Record.LIGHTHOUSE_COUNT, queryExecution.execSelect().next().get("lighthouse_count").asLiteral().getString());
+          }
+        } finally {
+          mDb.leaveCriticalSection();
+        }
         mTargetRepo.addResource(aResource, metadata);
       } catch (IndexOutOfBoundsException | IOException e) {
         Logger.error("Could not index resource", e);

@@ -105,7 +105,7 @@ public class TriplestoreRepository extends Repository implements Readable, Writa
     return getResource(aId, null);
   }
 
-  public boolean hasResource(@Nonnull String aId) {
+  boolean hasResource(@Nonnull String aId) {
     return mDb.containsResource(ResourceFactory.createResource(aId));
   }
 
