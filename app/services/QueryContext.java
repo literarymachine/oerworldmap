@@ -7,6 +7,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,7 +118,7 @@ public class QueryContext {
     return mZoomBottomRight;
   }
 
-  public void setZoomBottomRight(GeoPoint aZoomBottomRight) {
+  void setZoomBottomRight(GeoPoint aZoomBottomRight) {
     mZoomBottomRight = aZoomBottomRight;
   }
 
@@ -125,7 +126,7 @@ public class QueryContext {
     return mZoomTopLeft;
   }
 
-  public void setZoomTopLeft(GeoPoint aZoomTopLeft) {
+  void setZoomTopLeft(GeoPoint aZoomTopLeft) {
     mZoomTopLeft = aZoomTopLeft;
   }
 
@@ -140,7 +141,7 @@ public class QueryContext {
    * @param aPolygonFilter The Polygon Filter to be set.
    * @throws IllegalArgumentException if argument is null it consists of 1 or 2 GeoPoints.
    */
-  public void setPolygonFilter(List<GeoPoint> aPolygonFilter) throws IllegalArgumentException {
+  void setPolygonFilter(List<GeoPoint> aPolygonFilter) throws IllegalArgumentException {
     if (aPolygonFilter == null) {
       throw new IllegalArgumentException("Argument null given as Polygon Filter.");
     }
@@ -176,10 +177,10 @@ public class QueryContext {
       result.append("roles : ").append(roles).append("\n");
     }
     if (fetchSource != null && fetchSource.length > 0) {
-      result.append("fetchSource : ").append(fetchSource).append("\n");
+      result.append("fetchSource : ").append(Arrays.toString(fetchSource)).append("\n");
     }
     if (mElasticsearchFieldBoosts != null && mElasticsearchFieldBoosts.length > 0) {
-      result.append("elasticsearchFieldBoosts : ").append(mElasticsearchFieldBoosts).append("\n");
+      result.append("elasticsearchFieldBoosts : ").append(Arrays.toString(mElasticsearchFieldBoosts)).append("\n");
     }
     if (mZoomTopLeft != null && !StringUtils.isEmpty(mZoomTopLeft.toString())) {
       result.append("zoomTopLeft : ").append(mZoomTopLeft).append("\n");

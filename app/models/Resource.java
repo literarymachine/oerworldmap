@@ -159,13 +159,8 @@ public class Resource extends HashMap<String, Object> implements Comparable<Reso
     return (result == null) ? null : result.toString();
   }
 
-  public Boolean getAsBoolean(final Object aKey) {
-    Object result = get(aKey);
-    return (result != null) && ((boolean) result);
-  }
-
   @SuppressWarnings("unchecked")
-  public List<Resource> getAsList(final Object aKey) {
+  List<Resource> getAsList(final Object aKey) {
     List<Resource> list = new ArrayList<>();
     Object result = get(aKey);
     if (result instanceof HashMap<?, ?>) {

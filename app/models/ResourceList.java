@@ -52,16 +52,17 @@ public class ResourceList {
     aggregations = aAggregations;
   }
 
+  @SuppressWarnings("unchecked")
   public ResourceList(Resource aPagedCollection) {
     items = aPagedCollection.getAsList("member");
-    totalItems = Long.valueOf(aPagedCollection.getAsString("totalItems"));
+    totalItems = Long.parseLong(aPagedCollection.getAsString("totalItems"));
     query = aPagedCollection.getAsString("query");
-    from = Integer.valueOf(aPagedCollection.getAsString("from"));
+    from = Integer.parseInt(aPagedCollection.getAsString("from"));
     if (from > 0) {
       from--;
-      size = Integer.valueOf(aPagedCollection.getAsString("until")) - from;
+      size = Integer.parseInt(aPagedCollection.getAsString("until")) - from;
     }
-    size = Integer.valueOf(aPagedCollection.getAsString("totalItems"));
+    size = Integer.parseInt(aPagedCollection.getAsString("totalItems"));
     aggregations = aPagedCollection.getAsResource("aggregations");
     filters = (Map<String, List<String>>) aPagedCollection.getAsMap("filters");
   }
@@ -179,8 +180,7 @@ public class ResourceList {
     params.addAll(getFilterParams());
 
     for (int i = 0; i <= totalItems; i += size) {
-      List<NameValuePair> pageParams = new ArrayList<>();
-      pageParams.addAll(params);
+      List<NameValuePair> pageParams = new ArrayList<>(params);
       pageParams.add(new BasicNameValuePair("from", Integer.toString(i)));
       pages.add(getURIBuilder().addParameters(pageParams).build());
     }
